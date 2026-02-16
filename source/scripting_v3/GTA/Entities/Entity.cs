@@ -84,7 +84,7 @@ namespace GTA
         /// Determines whether the specified entity is null, has an invalid memory address, or does not exist in the game world.
         /// </summary>
         public static bool IsNullOrNotExisting(Entity entity)
-            => entity is null || !entity.TryGetMemoryAddress(out _) || !entity.Exists();
+            => entity is null || !entity.Exists();
 
         /// <summary>
         /// Gets the memory address where the <see cref="Entity"/> is stored in memory.
