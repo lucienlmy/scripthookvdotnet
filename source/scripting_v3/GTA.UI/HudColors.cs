@@ -11,7 +11,7 @@ namespace GTA.UI
         /// <summary>
         /// Gets the current value of a <see cref="HudColor"/>.
         /// </summary>
-        public static Color Get(HudColor hudColor)
+        public static Color GetColor(HudColor hudColor)
         {
             int r, g, b, a;
 
@@ -26,11 +26,11 @@ namespace GTA.UI
         /// <summary>
         /// Replaces a <see cref="HudColor"/> with another existing <see cref="HudColor"/>.
         /// </summary>
-        /// <param name="destination">The HUD color slot to replace.</param>
+        /// <param name="target">The HUD color slot to replace.</param>
         /// <param name="source">The source HUD color to copy from.</param>
-        public static void Set(HudColor destination, HudColor source)
+        public static void Replace(HudColor target, HudColor source)
         {
-            Function.Call(Hash.REPLACE_HUD_COLOUR, (int)destination, (int)source);
+            Function.Call(Hash.REPLACE_HUD_COLOUR, (int)target, (int)source);
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace GTA.UI
         /// </summary>
         /// <param name="destination">The <see cref="HudColor"/> slot to replace.</param>
         /// <param name="color">The new color.</param>
-        public static void Set(HudColor destination, Color color)
+        public static void SetColor(HudColor destination, Color color)
         {
             Function.Call(Hash.REPLACE_HUD_COLOUR_WITH_RGBA, (int)destination, color.R, color.G, color.B, color.A);
         }
@@ -51,7 +51,7 @@ namespace GTA.UI
         /// <param name="g">Green component.</param>
         /// <param name="b">Blue component.</param>
         /// <param name="a">Alpha component (0 = transparent, 255 = fully opaque).</param>
-        public static void Set(HudColor destination, byte r, byte g, byte b, byte a)
+        public static void SetColor(HudColor destination, byte r, byte g, byte b, byte a)
         {
             Function.Call(Hash.REPLACE_HUD_COLOUR_WITH_RGBA, (int)destination, (int)r, (int)g, (int)b, (int)a);
         }
