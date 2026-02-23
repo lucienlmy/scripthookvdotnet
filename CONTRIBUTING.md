@@ -84,7 +84,7 @@ Older parts of the codebase might not strictly adhere to our .editorconfig. When
 
 We try to follow [Conventional Commits][conventional_commits] with our custom change types and scopes to make it easier to generate changelogs. Write meaningful commit messages to make the project history and release notes more understandable. If the change is significant or complex, please, include a commit description providing more details.
 
-Here's our custom change types:
+Here's our custom change types as well as the standard types `feat` and `fix`, and how to use them:
   - `feat`
     - creates a new feature or changes something visible to users when using SHVDN as binaries or changes some of API
     - scopes are required
