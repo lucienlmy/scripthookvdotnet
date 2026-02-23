@@ -122,8 +122,6 @@ fix(api-v3): `Entity.Model` returning incorrect values
 ```
 docs(api-v2,api-v3): correct grammar errors across scripting docs
 ```
-
-You may want to see [#1590](https://github.com/scripthookvdotnet/scripthookvdotnet/issues/1590) for more details of the commit title format.
 ## License
 
 By contributing to this project, you agree that your contributions will be licensed under the [project's license](LICENSE.txt).
