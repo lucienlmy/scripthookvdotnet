@@ -84,7 +84,8 @@ Older parts of the codebase might not strictly adhere to our .editorconfig. When
 
 We try to follow [Conventional Commits][conventional_commits] with our custom change types and scopes to make it easier to generate changelogs. Write meaningful commit messages to make the project history and release notes more understandable. If the change is significant or complex, please include a commit description providing more details.
 
-Here's our custom change types as well as the standard types `feat` and `fix`, and how to use them:
+### Commit Types
+
 - `feat`
   - creates a new feature or changes something visible to users when using SHVDN as binaries, or changes some of the API
   - scopes are required
@@ -96,9 +97,9 @@ Here's our custom change types as well as the standard types `feat` and `fix`, a
   - scopes are optional
 - `ci`
   - changes to CI configuration and CI-specific tooling
-  - Scopes are forbidden 
+  - scopes are forbidden
 - `docs`
-  - changes that exclusively affect documentation.
+  - changes that exclusively affect documentation
   - scopes are optional
 - `refactor`
   - refactors without any change in functionality or API (includes style changes)
@@ -108,20 +109,26 @@ Here's our custom change types as well as the standard types `feat` and `fix`, a
   - scopes are required
 - `test`
   - improvements or corrections made to the project's test suite
-  - scope are optional
-The following scopes can be used with parentheses:
-- `core`: for the core ASI module `ScriptHookVDotNet.asi`.
-- `api-v2`: for the v2 scripting API module `ScriptHookVDotNet2.dll`.
-- `api-v3`: for the v3 scripting API module `ScriptHookVDotNet3.dll`.
-- `examples`: for script examples.
+  - scopes are optional
 
-Examples:
+### Commit Scopes
+
+The following scopes can be used with parentheses:
+
+- `core`: for the core ASI module `ScriptHookVDotNet.asi`
+- `api-v2`: for the v2 scripting API module `ScriptHookVDotNet2.dll`
+- `api-v3`: for the v3 scripting API module `ScriptHookVDotNet3.dll`
+- `examples`: for script examples
+
+### Examples
+
 ```
 fix(api-v3): `Entity.Model` returning incorrect values
 ```
 ```
 docs(api-v2,api-v3): correct grammar errors across scripting docs
 ```
+
 ## License
 
 By contributing to this project, you agree that your contributions will be licensed under the [project's license](LICENSE.txt).
