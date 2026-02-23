@@ -1,6 +1,6 @@
 # Contributing to ScriptHookVDotNet
 
-Thank you for considering contributing to ScriptHookVDoNet (SHVDN)! We appreciate your time and effort to make this project better.
+Thank you for considering contributing to ScriptHookVDotNet (SHVDN)! We appreciate your time and effort to make this project better.
 
 The following guidelines will help you get started with the contribution process. If you have any doubts or want to discuss the development of SHVDN, you can start discussions on our [GitHub Discussions][discussions_github].
 
@@ -31,7 +31,7 @@ Please review and adhere to our [Code of Conduct](CODE_OF_CONDUCT.md) to foster 
 
 If you find a bug, please [create an issue][issue_tracker] in our issue tracker. Include as much detail as possible to help us understand and reproduce the problem. You may want to include snippets of source code, screenshots, etc.
 
-**Note**: The issue tracker should be for bug reports and features requests, and enhancement suggestions only. If you are having an issue and you are not sure if it is a bug or not, ask on our [GitHub Discussions][discussions_github] first.
+**Note**: The issue tracker should be only for bug reports, feature requests, and enhancement suggestions. If you are having an issue and you are not sure if it is a bug or not, ask on our [GitHub Discussions][discussions_github] first.
 
 ### Suggesting Enhancements
 
@@ -39,7 +39,7 @@ We welcome suggestions for new features, improvements, or changes to the project
 
 ### Documentation
 
-We use our Wiki of GitHub on the repository *for now*, and it may be replaced by an alternative such as GitBook. If you wish to contribute to our Wiki, you can submit your ideas by [creating an issue][issue_tracker].
+We use the GitHub Wiki on this repository *for now*, and it may be replaced by an alternative such as GitBook. If you wish to contribute to our Wiki, you can submit your ideas by [creating an issue][issue_tracker].
 
 ### Pull Requests
 
@@ -62,7 +62,7 @@ We'll review your pull request, provide feedback, and work with you to get it me
    > cd scripthookvdotnet
 ```
 3. Build the solution. The output directory for the Debug build and the Release build are `[root directory]/bin/Debug` and `[root directory]/bin/Release` respectively. You will see `ScriptHookVDotNet.asi` (core runtime module), `ScriptHookVDotNet2.dll` (v2 API module), and `ScriptHookVDotNet3.dll` (v3 API module) as binary files in one of the output directories. You will also see the debug symbol files `ScriptHookVDotNet.pdb`, `ScriptHookVDotNet2.pdb`, and `ScriptHookVDotNet3.pdb`, which may help you diagnose issues of said binary files more easily.
-4. Put the `.asi` and `.dll` files mentioned above and optionally `.pdb` files to the root directory of the game.
+4. Put the `.asi` and `.dll` files mentioned above, and optionally `.pdb` files, to the root directory of the game.
 
 ### Testing
 
@@ -72,7 +72,7 @@ Tests are not required in pull requests due to the complexity of making good tes
 
 ### Debugging
 
-You would have to debug SHVDN by running SHVDN and seeing how it works. Since the game has an anti-debugging feature that crashes the game process and that works **even in Story Mode**, you will not be able to keep debugging with a debugger. b2802 made its anti-debugging system more aggressive but still lets you debug with a debugger for a considerable amount of time. However, some game update after b2802 made even more aggressive so you can't really debug with a debugger without debug flag hooks because [the game always and almost immediately detect a debugger](https://discord.com/channels/318621297057988608/318626093013925889/1354726801355833374).
+You would have to debug SHVDN by running SHVDN and seeing how it works. Since the game has an anti-debugging feature that crashes the game process and that works **even in Story Mode**, you will not be able to keep debugging with a debugger. b2802 made its anti-debugging system more aggressive, but still lets you debug with a debugger for a considerable amount of time. However, some game updates after b2802 made the game even more aggressive, so you can't really debug with a debugger without debug flag hooks because [the game always and almost immediately detects a debugger](https://discord.com/channels/318621297057988608/318626093013925889/1354726801355833374).
 
 ## Style Guidelines
 
@@ -82,11 +82,11 @@ Older parts of the codebase might not strictly adhere to our .editorconfig. When
 
 ## Commit Guidelines
 
-We try to follow [Conventional Commits][conventional_commits] with our custom change types and scopes to make it easier to generate changelogs. Write meaningful commit messages to make the project history and release notes more understandable. If the change is significant or complex, please, include a commit description providing more details.
+We try to follow [Conventional Commits][conventional_commits] with our custom change types and scopes to make it easier to generate changelogs. Write meaningful commit messages to make the project history and release notes more understandable. If the change is significant or complex, please include a commit description providing more details.
 
 Here's our custom change types as well as the standard types `feat` and `fix`, and how to use them:
 - `feat`
-  - creates a new feature or changes something visible to users when using SHVDN as binaries or changes some of API
+  - creates a new feature or changes something visible to users when using SHVDN as binaries, or changes some of the API
   - scopes are required
 - `fix`
   - fixes a previously discovered failure/bug
@@ -95,7 +95,7 @@ Here's our custom change types as well as the standard types `feat` and `fix`, a
   - changes to local repository build system and tooling
   - scopes are optional
 - `ci`
-  - changes to CI configuration and CI specific tooling
+  - changes to CI configuration and CI-specific tooling
   - Scopes are forbidden 
 - `docs`
   - changes that exclusively affect documentation.
@@ -113,7 +113,7 @@ The following scopes can be used with parentheses:
 - `core`: for the core ASI module `ScriptHookVDotNet.asi`.
 - `api-v2`: for the v2 scripting API module `ScriptHookVDotNet2.dll`.
 - `api-v3`: for the v3 scripting API module `ScriptHookVDotNet3.dll`.
-- `examples`: for example scripts.
+- `examples`: for script examples.
 
 Examples:
 ```
