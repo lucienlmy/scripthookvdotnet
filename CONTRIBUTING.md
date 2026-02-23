@@ -85,35 +85,35 @@ Older parts of the codebase might not strictly adhere to our .editorconfig. When
 We try to follow [Conventional Commits][conventional_commits] with our custom change types and scopes to make it easier to generate changelogs. Write meaningful commit messages to make the project history and release notes more understandable. If the change is significant or complex, please, include a commit description providing more details.
 
 Here's our custom change types as well as the standard types `feat` and `fix`, and how to use them:
-  - `feat`
-    - creates a new feature or changes something visible to users when using SHVDN as binaries or changes some of API
-    - scopes are required
-  - `fix`
-    - fixes a previously discovered failure/bug
-    - scopes are required
-  - `build`
-    - changes to local repository build system and tooling
-    - scopes are optional
-  - `ci`
-    - changes to CI configuration and CI specific tooling
-    - Scopes are forbidden 
-  - `docs`
-    - changes that exclusively affect documentation.
-    - scopes are optional
-  - `refactor`
-    - refactors without any change in functionality or API (includes style changes)
-    - scopes are optional
-  - `perf`
-    - improves performance without any change in functionality or API
-    - scopes are required
-  - `test`
-    - improvements or corrections made to the project's test suite
-    - scope are optional
-- The following scopes can be used with parentheses:
-  - `core`: for the core ASI module `ScriptHookVDotNet.asi`.
-  - `api-v2`: for the v2 scripting API module `ScriptHookVDotNet2.dll`.
-  - `api-v3`: for the v3 scripting API module `ScriptHookVDotNet3.dll`.
-  - `examples`: for example scripts.
+- `feat`
+  - creates a new feature or changes something visible to users when using SHVDN as binaries or changes some of API
+  - scopes are required
+- `fix`
+  - fixes a previously discovered failure/bug
+  - scopes are required
+- `build`
+  - changes to local repository build system and tooling
+  - scopes are optional
+- `ci`
+  - changes to CI configuration and CI specific tooling
+  - Scopes are forbidden 
+- `docs`
+  - changes that exclusively affect documentation.
+  - scopes are optional
+- `refactor`
+  - refactors without any change in functionality or API (includes style changes)
+  - scopes are optional
+- `perf`
+  - improves performance without any change in functionality or API
+  - scopes are required
+- `test`
+  - improvements or corrections made to the project's test suite
+  - scope are optional
+The following scopes can be used with parentheses:
+- `core`: for the core ASI module `ScriptHookVDotNet.asi`.
+- `api-v2`: for the v2 scripting API module `ScriptHookVDotNet2.dll`.
+- `api-v3`: for the v3 scripting API module `ScriptHookVDotNet3.dll`.
+- `examples`: for example scripts.
 
 Examples:
 ```
