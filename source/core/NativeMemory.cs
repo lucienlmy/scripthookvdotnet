@@ -721,22 +721,6 @@ namespace SHVDN
                 s_radarZoomValueAddress = (int*)(*(int*)(address + 5) + address + 9);
             }
 
-            address = MemScanner.FindPatternBmh("\x83\xFB\x3B\x75\x00", "xxxx?");
-            if (address != null)
-            {
-                //Check if we are at the right place.
-                byte* address2 = MemScanner.FindPatternBmh("\x81\x38\x43\xA9\xB8\xCA", "xxxxxx", new IntPtr(address), 0x80);
-
-                if(address2 != null)
-                {
-                    if (*(byte*)(address + 3) == 0x75)
-                    {
-                        *(byte*)(address + 3) = 0xEB;
-                    }
-                }
-
-            }
-
             // Generate vehicle model list
             var vehicleHashesGroupedByClass = new List<int>[0x20];
             for (int i = 0; i < 0x20; i++)
