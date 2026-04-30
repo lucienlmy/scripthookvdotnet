@@ -2,10 +2,12 @@
 // Copyright (C) 2026 kagikn & contributors
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
+
 using System;
 using System.Globalization;
 using GTA.Math;
 using Xunit;
+
 namespace ScriptHookVDotNet_APIv3_Tests.Math
 {
     public class Vector4Tests
