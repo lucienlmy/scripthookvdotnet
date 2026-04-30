@@ -20,6 +20,8 @@ namespace SHVDN
     public sealed class Console : MarshalByRefObject
     {
         private int _cursorPos = 0;
+        private int _lastCursorBlinkTick = 0;
+        private bool _cursorVisible = false;
         private int _commandPos = -1;
         private int _currentPage = 1;
         private bool _isOpen = false;
@@ -303,6 +305,8 @@ namespace SHVDN
                 _cursorPos += text.Length;
                 UpdateCommandCandidates();
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Paste clipboard content into the console input line.
@@ -325,6 +329,8 @@ namespace SHVDN
                 _input = string.Empty;
                 _cursorPos = 0;
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Clears the console output.
@@ -578,8 +584,14 @@ namespace SHVDN
 
             lock (_lock)
             {
+                if(_lastCursorBlinkTick + 500 < nowTickCount)
+                {
+                    _cursorVisible = !_cursorVisible;
+                    _lastCursorBlinkTick = nowTickCount;
+                }
+
                 // Draw blinking cursor
-                if (nowTickCount % 1000 < 500)
+                if (_cursorVisible)
                 {
                     float lengthBetweenInputStartAndCursor = GetTextLength(currInput.Substring(0, _cursorPos)) - GetMarginLength();
                     DrawRect(26 + (lengthBetweenInputStartAndCursor * ConsoleWidth), ConsoleHeight + 2, 2, InputHeight - 4, Color.White);
@@ -677,12 +689,14 @@ namespace SHVDN
                                 _cursorPos = _input.Length;
                             }
                             UpdateCommandCandidates();
+                            ResetCursorBlinking();
                         }
                         else
                         {
                             _input = candidate;
                             _cursorPos = _input.Length;
                             UpdateCommandCandidates();
+                            ResetCursorBlinking();
                         }
                     }
                     else if (_commandCandidates.Count > 1)
@@ -701,6 +715,7 @@ namespace SHVDN
                             _input = prefix;
                             _cursorPos = _input.Length;
                             UpdateCommandCandidates();
+                            ResetCursorBlinking();
                         }
                     }
                 }
@@ -747,7 +762,8 @@ namespace SHVDN
                 _input = _commandHistory[_commandHistory.Count - _commandPos - 1];
                 // Reset cursor position to end of input text
                 _cursorPos = _input.Length;
-                UpdateCommandCandidates(); 
+                UpdateCommandCandidates();
+                ResetCursorBlinking();
             }
         }
 
@@ -763,7 +779,9 @@ namespace SHVDN
                 _commandPos--;
                 _input = _commandHistory[_commandHistory.Count - _commandPos - 1];
                 _cursorPos = _input.Length;
-                UpdateCommandCandidates(); 
+
+                UpdateCommandCandidates();
+                ResetCursorBlinking();
             }
         }
 
@@ -804,6 +822,8 @@ namespace SHVDN
                     }
                 }
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Moves back to the start of the current or previous word.
@@ -841,6 +861,8 @@ namespace SHVDN
                     }
                 }
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Deletes the character behind the cursor.
@@ -856,7 +878,8 @@ namespace SHVDN
 
                 _input = _input.Remove(_cursorPos - 1, 1);
                 _cursorPos--;
-                UpdateCommandCandidates(); 
+                UpdateCommandCandidates();
+                ResetCursorBlinking();
             }
         }
         /// <summary>
@@ -891,6 +914,8 @@ namespace SHVDN
                 KillText(ref _input, 0, _cursorPos);
                 _cursorPos = 0;
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Kills backward from the cursor to the beginning of the current line.
@@ -936,6 +961,8 @@ namespace SHVDN
                 KillText(ref _input, origCursorPos, currCursorPos - origCursorPos);
                 _cursorPos = origCursorPos;
             }
+
+            ResetCursorBlinking();
         }
         /// <summary>
         /// Kill the word behind the cursor.
@@ -993,6 +1020,7 @@ namespace SHVDN
 
 
                 KillText(ref _input, _cursorPos, origCursorPos - _cursorPos);
+                ResetCursorBlinking();
             }
 
             // yields exactly the same result as a internal "whitespace" function in bash
@@ -1027,7 +1055,9 @@ namespace SHVDN
                 {
                     _input = SwapTwoCharacters(_input, _cursorPos - 2);
                 }
-                UpdateCommandCandidates(); 
+
+                UpdateCommandCandidates();
+                ResetCursorBlinking();
             }
 
             string SwapTwoCharacters(string str, int index)
@@ -1117,6 +1147,8 @@ namespace SHVDN
                 _cursorPos = word2End;
                 UpdateCommandCandidates(); 
             }
+
+            ResetCursorBlinking();
         }
 
         private void KillText(ref string str, int startIndex, int length)
@@ -1135,6 +1167,8 @@ namespace SHVDN
                     _cursorPos--;
                 }
             }
+
+            ResetCursorBlinking();
         }
 
         private void MoveCursorRight()
@@ -1146,6 +1180,8 @@ namespace SHVDN
                     _cursorPos++;
                 }
             }
+
+            ResetCursorBlinking();
         }
 
         private void MoveCursorToBegOfLine()
@@ -1154,6 +1190,8 @@ namespace SHVDN
             {
                 _cursorPos = 0;
             }
+
+            ResetCursorBlinking();
         }
 
         private void MoveCursorToEndOfLine()
@@ -1162,6 +1200,8 @@ namespace SHVDN
             {
                 _cursorPos = _input.Length;
             }
+
+            ResetCursorBlinking();
         }
 
         private void CompileExpression()
@@ -1277,6 +1317,17 @@ namespace SHVDN
             }
             if (_commandCandidates.Count > 0)
                 _selectedCandidateIndex = 0;
+        }
+
+        private void ResetCursorBlinking()
+        {
+            lock (_lock)
+            {
+                _lastCursorBlinkTick = 0;
+
+                //Because we set _lastCursorBlinkTick to 0; the state will be flipped next tick.
+                _cursorVisible = false;
+            }
         }
 
         public override object InitializeLifetimeService()
