@@ -186,7 +186,7 @@ namespace GTA
 
                 return System.Drawing.Color.FromArgb(SHVDN.MemDataMarshal.ReadInt32(address + 0x4C));
             }
-            set => Function.Call(Hash.SET_BLIP_SECONDARY_COLOUR, Handle, value.R, value.G, value.B);
+            set => SHVDN.NativeMemory.SetBlipSecondaryColor(Handle, (uint)value.ToArgb());
         }
 
         /// <summary>
