@@ -242,6 +242,42 @@ namespace GTA
         /// </summary>
         public static Vector3 WindDirection => Function.Call<Vector3>(Hash.GET_WIND_DIRECTION);
 
+        /// <summary>
+        /// Gets the current wind heading in degrees.
+        /// </summary>
+        public static float WindHeadingAngle
+        {
+            get
+            {
+                const float Rad2Deg = (float)(180.0 / System.Math.PI);
+
+                /*
+                 * Vector ( sin(α) | cos(α) | 0 )
+                 */
+                Vector3 direction = Function.Call<Vector3>(Hash.GET_WIND_DIRECTION);
+
+                return (float)System.Math.Atan2(direction.X, direction.Y) * Rad2Deg;
+            }
+        }
+
+        /// <summary>
+        /// Sets the current wind heading override in degrees.
+        /// </summary>
+        /// <remarks>
+        /// When set to any value greater than 0, the wind direction will not naturally progress.
+        /// <para>
+        /// When set to any value less than 0, the override will be cleared.
+        /// </para>
+        /// </remarks>
+        public static float WindHeadingAngleOverride
+        {
+            set
+            {
+                const float Deg2Rad = (float)(System.Math.PI / 180.0);
+
+                Function.Call(Hash.SET_WIND_DIRECTION, value * Deg2Rad);
+            }
+        }
         #endregion
 
         #region Blips
