@@ -344,19 +344,15 @@ namespace GTA
                 return SHVDN.MemDataMarshal.ReadFloat(address + SHVDN.NativeMemory.Vehicle.CWheelTireHealthOffset) < 1000f;
             }
         }
-        /// <summary>
-        /// Sets a value indicating whether this <see cref="VehicleWheel"/> is bursted.
-        /// </summary>
-        public bool IsBursted
-        {
-            get
-            {
-                if (!TryGetMemoryAddress(out IntPtr address) || SHVDN.NativeMemory.Vehicle.CWheelTireHealthOffset == 0)
-                    return false;
 
-                return SHVDN.MemDataMarshal.ReadFloat(address + SHVDN.NativeMemory.Vehicle.CWheelTireHealthOffset) <= 0f;
-            }
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="VehicleWheel"/> is burst.
+        /// </summary>
+        public bool IsBurst
+        {
+            get => TireHealth == 0f;
         }
+
         /// <summary>
         /// Gets or sets the suspension health.
         /// </summary>
