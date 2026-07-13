@@ -729,6 +729,12 @@ namespace SHVDN
                 s_isCameraInAccurateMode = (delegate* unmanaged[Stdcall]<byte>)(new IntPtr(*(int*)(address + 0x17) + address + 0x1B));
             }
 
+            address = MemScanner.FindPatternBmh("\x8D\x4F\x07\x44\x0B\xC0\x41\x81\xC8\x00\x00\x00\xFF\xE8", "xxxxxxxxxxxxxx");
+            if (address != null)
+            {
+                s_setBlipParameterFunc_Color32 = (delegate* unmanaged[Stdcall]<int, int, uint, void>)(Rel32(address, 0xE));
+            }
+
             // Nopping this enables to spawn some drawable objects without a dedicated collision (e.g. prop_fan_palm_01a)
             address = MemScanner.FindPatternBmh("\x74\x00\x00\x00\x00\x74\x00\xe8\x00\x00\x00\x00\x48\x85\xc0\x75\x00\x38\x00\x00\x0f\x84\x00\x00\x00\x00\x48\x8d\x4d\x00\xe8\x00\x00\x00\x00\x66\x89\x45\x00\x8b\x45\x00\x8b\xc8\x33\x4d", "x????x?x????xxxx?x??xx????xxx?x????xxx?xx?xxxx");
             if (address != null)
@@ -4679,6 +4685,8 @@ namespace SHVDN
         private static int* s_northRadarBlipHandleAddress;
         private static int* s_centerRadarBlipHandleAddress;
 
+        private static delegate* unmanaged[Stdcall]<int, int, uint, void> s_setBlipParameterFunc_Color32;
+
         private static bool CheckBlip(ulong blipAddress, FVector3? position, float radius, params int[] spriteTypes)
         {
             if (spriteTypes.Length > 0)
@@ -4833,6 +4841,11 @@ namespace SHVDN
             }
 
             return value;
+        }
+
+        public static void SetBlipSecondaryColor(int handle, uint argb)
+        {
+            s_setBlipParameterFunc_Color32(7, handle, argb);
         }
 
         #endregion
