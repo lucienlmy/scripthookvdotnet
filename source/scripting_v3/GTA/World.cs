@@ -32,6 +32,7 @@ namespace GTA
         /// </value>
         public static bool Blackout
         {
+            get => SHVDN.NativeMemory.AreArtificialLightsDisabled;
             set => Function.Call(Hash.SET_ARTIFICIAL_LIGHTS_STATE, value);
         }
 
