@@ -177,11 +177,11 @@ namespace GTA
         /// Gets or sets a value indicating whether this <see cref="Vehicle"/> has its rocket boost currently active.
         /// </summary>
         /// <remarks>
-        /// Reading always <see langword="false"/> prior to <c>v1.0.1011.1</c>;
-        /// Writing to this prior to <c>v1.0.1011.1</c> will throw an error.
+        /// Reading always <see langword="false"/> prior to <c>v1.0.944.2</c>;
+        /// Writing to this prior to <c>v1.0.944.2</c> will throw an error.
         /// </remarks>
         /// <exception cref="GameVersionNotSupportedException">
-        /// Thrown if trying to update this value in game versions earlier than <c>v1.0.1011.1</c>;
+        /// Thrown if trying to update this value in game versions earlier than <c>v1.0.944.2</c>;
         /// </exception>
         public bool IsRocketBoostActive
         {
