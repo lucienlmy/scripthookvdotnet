@@ -515,7 +515,9 @@ namespace GTA
         /// <see cref="Vehicle"/> (not the bone), rather than in world-space. Effective as long as the
         /// <see cref="Camera"/> is attached.
         /// </param>
-        /// <exception cref="GameVersionNotSupportedException">Thrown when called in v1.0.1290.1 or earlier game versions.</exception>
+        /// <exception cref="GameVersionNotSupportedException">
+        /// Thrown if called in game versions earlier than <c>v1.0.1290.1</c>.
+        /// </exception>
         public void AttachToVehicleBone(EntityBone vehicleBone, Vector3 positionOffset, bool offsetIsRelative = true)
         {
             GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_1290_1,
@@ -543,7 +545,9 @@ namespace GTA
         /// <see cref="Camera"/> is attached. <paramref name="rotationOffset"/> is always relative to the transform of
         /// the bone even if this parameter is set to <see langword="true"/>.
         /// </param>
-        /// <exception cref="GameVersionNotSupportedException">Thrown when called in v1.0.1290.1 or earlier game versions.</exception>
+        /// <exception cref="GameVersionNotSupportedException">
+        /// Thrown if called in game versions earlier than <c>v1.0.1290.1</c>.
+        /// </exception>
         public void HardAttachToVehicleBone(EntityBone vehicleBone, Vector3 rotationOffset,
             Vector3 positionOffset, bool offsetIsRelative = true)
         {
