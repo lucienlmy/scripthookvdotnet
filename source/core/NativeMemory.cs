@@ -2474,6 +2474,12 @@ namespace SHVDN
                     VisualFieldMaxElevationAngleOffset = SeeingRangeOffset + 0x14;
                     VisualFieldCenterAngleOffset = SeeingRangeOffset + 0x18;
                 }
+
+                address = MemScanner.FindPatternBmh("\x7C\x00\x41\xb8\x65\x07\x9D\xA4", "x?xxxxxx");
+                if(address != null)
+                {
+                    MoneyCarriedOffset = *(int*)(address - 0x5);
+                }
             }
 
             #region -- CPed Data --
@@ -2548,6 +2554,8 @@ namespace SHVDN
             public static int IsUsingWetEffectOffset { get; }
 
             public static int SweatOffset { get; }
+
+            public static int MoneyCarriedOffset { get; }
 
             /// <summary>
             /// The value at this offset should be 2 if the ped is a player ped.

@@ -58,6 +58,20 @@ namespace SHVDN
                 return *(int*)address.ToPointer();
             }
         }
+
+        /// <summary>
+        /// Reads a single unsigned 32-bit value from the specified <paramref name="address"/>.
+        /// </summary>
+        /// <param name="address">The memory address to access.</param>
+        /// <returns>The value at the address.</returns>
+        public static uint ReadUInt32(IntPtr address)
+        {
+            unsafe
+            {
+                return *(uint*)address.ToPointer();
+            }
+        }
+
         /// <summary>
         /// Reads a single floating-point value from the specified <paramref name="address"/>.
         /// </summary>
@@ -201,6 +215,17 @@ namespace SHVDN
                 *data = value;
             }
         }
+
+        /// <summary>
+        /// Writes a single unsigned 32-bit value to the specified <paramref name="address"/>.
+        /// </summary>
+        /// <param name="address">The memory address to access.</param>
+        /// <param name="value">The value to write.</param>
+        public static unsafe void WriteUInt32(IntPtr address, uint value)
+        {
+            *(uint*)address.ToPointer() = value;
+        }
+
         /// <summary>
         /// Writes a single floating-point value to the specified <paramref name="address"/>.
         /// </summary>
