@@ -2715,14 +2715,39 @@ namespace GTA
         public void StopCurrentPlayingAmbientSpeech() => Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Handle);
 
         /// <summary>
-        /// Sets the ambient voice to use when this <see cref="Ped"/> speaks.
+        /// Gets or sets the ambient voice hash this <see cref="Ped"/> uses when speaking.
         /// </summary>
         /// <remarks>
-        /// The voice name will be stored as a joaat hash converted in the same way as <see cref="Game.GenerateHash(string)"/> does.
+        /// The default value is <c>0</c> when no voice has been assigned.
+        /// When setting an invalid voice hash, the value <c>0x87BFF09A</c> (<c>NO_VOICE</c>) is assigned instead.
         /// </remarks>
-        public string Voice
+        public uint AmbientVoiceHash
         {
-            set => Function.Call(Hash.SET_AMBIENT_VOICE_NAME, Handle, value);
+            get
+            {
+                if (Game.FileVersion >= ExeVersionConsts.v1_0_463_1)
+                {
+                    return Function.Call<uint>(Hash.GET_AMBIENT_VOICE_NAME_HASH, Handle);
+                }
+
+                if (!TryGetMemoryAddress(out IntPtr address))
+                    return 0;
+
+                return SHVDN.NativeMemory.GetAmbientVoiceNameHash(address);
+            }
+            set
+            {
+                if(Game.FileVersion >= ExeVersionConsts.v1_0_463_1)
+                {
+                    Function.Call(Hash.SET_AMBIENT_VOICE_NAME_HASH, Handle, value);
+                    return;
+                }
+
+                if (!TryGetMemoryAddress(out IntPtr address))
+                    return;
+
+                SHVDN.NativeMemory.SetAmbientVoiceNameHash(address, value);
+            }
         }
 
         #endregion

@@ -741,6 +741,23 @@ namespace SHVDN
                 s_disableArtificialLightsAddress = Rel32<byte>(address, 0x10);
             }
 
+            // These patterns also work in newer game versions but are not required currently.
+            if(GameFileVersion < new Version(1, 0, 463, 1))
+            {
+                address = MemScanner.FindPatternBmh("\x84\xC0\x75\x27\x88\x83\x00\x00\x00\x00\x8A\x83\x00\x00\x00\x00\xC7\x83\x00\x00\x00\x00\x9A\xF0\xBF\x87", "xxxxxx????xx????xx????xxxx");
+                if (address != null)
+                {
+                    s_ambientVoiceNameHashOffset = *(int*)(address - 0x9);
+                }
+
+                address = MemScanner.FindPatternBmh("\x48\x8B\x88\x00\x00\x00\x00\x41\xB0\x01\xE8", "xxx????xxxx");
+                if (address != null)
+                {
+                    s_setAmbientVoiceNameFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void>)(Rel32(address, 0xB));
+                    s_pedAudSpeechAudioEntityOffset = *(int*)(address + 0x3);
+                }
+            }
+
             // Nopping this enables to spawn some drawable objects without a dedicated collision (e.g. prop_fan_palm_01a)
             address = MemScanner.FindPatternBmh("\x74\x00\x00\x00\x00\x74\x00\xe8\x00\x00\x00\x00\x48\x85\xc0\x75\x00\x38\x00\x00\x0f\x84\x00\x00\x00\x00\x48\x8d\x4d\x00\xe8\x00\x00\x00\x00\x66\x89\x45\x00\x8b\x45\x00\x8b\xc8\x33\x4d", "x????x?x????xxxx?x??xx????xxx?x????xxx?xx?xxxx");
             if (address != null)
@@ -6086,6 +6103,53 @@ namespace SHVDN
         {
             var task = new NmMessageTask(targetHandle, messageName, boolIntFloatParameters, stringVector3ArrayParameters);
             ScriptDomain.CurrentDomain.ExecuteTaskWithGameThreadTlsContext(task);
+        }
+
+        #endregion
+
+
+        #region -- Audio --
+
+        /// <remarks>
+        /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
+        /// </remarks>
+        public static int s_ambientVoiceNameHashOffset;
+
+        /// <remarks>
+        /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
+        /// </remarks>
+        public static int s_pedAudSpeechAudioEntityOffset;
+
+        private static delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void> s_setAmbientVoiceNameFunc;
+
+        /// <remarks>
+        /// Since b463 use GET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
+        /// </remarks>
+        public static uint GetAmbientVoiceNameHash(IntPtr pedAddress)
+        {
+            if (s_pedAudSpeechAudioEntityOffset == 0 || s_setAmbientVoiceNameFunc == null)
+            {
+                return 0;
+            }
+
+            IntPtr audSpeechAudioEntityAddress = *(IntPtr*)((byte*)pedAddress + s_pedAudSpeechAudioEntityOffset);
+
+            return *(uint*)((byte*)audSpeechAudioEntityAddress + s_ambientVoiceNameHashOffset);
+        }
+
+        /// <remarks>
+        /// Since b463 use SET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
+        /// </remarks>
+        public static void SetAmbientVoiceNameHash(IntPtr pedAddress, uint hash)
+        {
+            if(s_pedAudSpeechAudioEntityOffset == 0 || s_setAmbientVoiceNameFunc == null)
+            {
+                return;
+            }
+
+            IntPtr audSpeechAudioEntityAddress = *(IntPtr*)((byte*)pedAddress + s_pedAudSpeechAudioEntityOffset);
+
+            s_setAmbientVoiceNameFunc(audSpeechAudioEntityAddress, hash, true);
         }
 
         #endregion
