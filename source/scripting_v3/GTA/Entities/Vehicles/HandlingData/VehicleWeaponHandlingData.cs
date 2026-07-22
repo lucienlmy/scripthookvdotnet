@@ -29,7 +29,7 @@ namespace GTA
         {
             // Although we could get element count from parStructure->parMemberArray->parMemberDefinition,
             // it will not be worth it because only one update changed max element count of array members of CVehicleWeaponHandlingData as of b2845
-            if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+            if (Game.FileVersion >= ExeVersionConsts.b1180_2)
             {
                 s_elemCountForWeaponPropertyArrays = 6;
                 s_elemCountActuallyUsedForTurretPropertyArrays = 6;
@@ -117,7 +117,7 @@ namespace GTA
 
                 var result = new VehicleSeat[s_elemCountForWeaponPropertyArrays];
 
-                int memberOffset = Game.FileVersion >= ExeVersionConsts.v1_0_1180_2 ? 0x20 : 0x18;
+                int memberOffset = Game.FileVersion >= ExeVersionConsts.b1180_2 ? 0x20 : 0x18;
                 for (int i = 0; i < result.Length; i++)
                 {
                     result[i] = (VehicleSeat)SHVDN.MemDataMarshal.ReadInt32(MemoryAddress + memberOffset + i * 4);
@@ -149,7 +149,7 @@ namespace GTA
                     arrayToFill[i] = (int)value[i] + 1;
                 }
 
-                int memberOffset = Game.FileVersion >= ExeVersionConsts.v1_0_1180_2 ? 0x20 : 0x18;
+                int memberOffset = Game.FileVersion >= ExeVersionConsts.b1180_2 ? 0x20 : 0x18;
                 for (int i = 0; i < arrayToFill.Length; i++)
                 {
                     SHVDN.MemDataMarshal.WriteInt32(MemoryAddress + memberOffset + i * 4, arrayToFill[i]);
@@ -173,7 +173,7 @@ namespace GTA
         {
             get
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_1103_2, nameof(VehicleWeaponHandlingData), nameof(WeaponVehicleModType));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b1103_2, nameof(VehicleWeaponHandlingData), nameof(WeaponVehicleModType));
 
                 if (!IsValid)
                 {
@@ -181,7 +181,7 @@ namespace GTA
                 }
 
                 var result = new VehicleModType[s_elemCountForWeaponPropertyArrays];
-                int memberOffset = Game.FileVersion >= ExeVersionConsts.v1_0_1180_2 ? 0x38 : 0x28;
+                int memberOffset = Game.FileVersion >= ExeVersionConsts.b1180_2 ? 0x38 : 0x28;
                 for (int i = 0; i < result.Length; i++)
                 {
                     int modTypeForNative = SHVDN.MemDataMarshal.ReadInt32(MemoryAddress + memberOffset + i * 4);
@@ -198,7 +198,7 @@ namespace GTA
             }
             set
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_1103_2, nameof(VehicleWeaponHandlingData), nameof(WeaponVehicleModType));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b1103_2, nameof(VehicleWeaponHandlingData), nameof(WeaponVehicleModType));
 
                 if (value.Length > s_elemCountForWeaponPropertyArrays)
                 {
@@ -223,7 +223,7 @@ namespace GTA
                 }
 
                 int memberOffset
-                    = Game.FileVersion >= ExeVersionConsts.v1_0_1180_2 ? 0x38 : 0x28;
+                    = Game.FileVersion >= ExeVersionConsts.b1180_2 ? 0x38 : 0x28;
                 for (int i = 0; i < arrayToFill.Length; i++)
                 {
                     SHVDN.MemDataMarshal.WriteInt32(MemoryAddress + memberOffset + i * 4, arrayToFill[i]);
@@ -244,11 +244,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0x50;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x38;
                 }
@@ -277,11 +277,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0x50;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x38;
                 }
@@ -316,11 +316,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0x80;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x44;
                 }
@@ -349,11 +349,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0x80;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x44;
                 }
@@ -388,11 +388,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0xB0;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x50;
                 }
@@ -421,11 +421,11 @@ namespace GTA
                 }
 
                 int memberOffset;
-                if (Game.FileVersion >= ExeVersionConsts.v1_0_1180_2)
+                if (Game.FileVersion >= ExeVersionConsts.b1180_2)
                 {
                     memberOffset = 0xB0;
                 }
-                else if (Game.FileVersion >= ExeVersionConsts.v1_0_1103_2)
+                else if (Game.FileVersion >= ExeVersionConsts.b1103_2)
                 {
                     memberOffset = 0x50;
                 }
