@@ -65,7 +65,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return 0;
 
-                int offset = Game.FileVersion >= ExeVersionConsts.v1_0_463_1 ? 0x54 : 0x50;
+                int offset = Game.FileVersion >= ExeVersions.b463_1 ? 0x54 : 0x50;
                 return SHVDN.MemDataMarshal.ReadFloat(address + offset);
             }
             set
@@ -73,7 +73,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return;
 
-                int offset = Game.FileVersion >= ExeVersionConsts.v1_0_463_1 ? 0x54 : 0x50;
+                int offset = Game.FileVersion >= ExeVersions.b463_1 ? 0x54 : 0x50;
                 SHVDN.MemDataMarshal.WriteFloat(address + offset, value);
             }
         }

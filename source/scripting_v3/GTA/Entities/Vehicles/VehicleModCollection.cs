@@ -309,7 +309,7 @@ namespace GTA
         {
             get
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_505_2, nameof(VehicleModCollection), nameof(TrimColor));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b505_2, nameof(VehicleModCollection), nameof(TrimColor));
 
                 int trimColorIndex;
                 unsafe
@@ -321,7 +321,7 @@ namespace GTA
             }
             set
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_505_2, nameof(VehicleModCollection), nameof(TrimColor));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b505_2, nameof(VehicleModCollection), nameof(TrimColor));
 
                 Function.Call(Hash.SET_VEHICLE_EXTRA_COLOUR_5, _owner.Handle, (int)value);
             }
@@ -330,7 +330,7 @@ namespace GTA
         {
             get
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_505_2, nameof(VehicleModCollection), nameof(DashboardColor));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b505_2, nameof(VehicleModCollection), nameof(DashboardColor));
 
                 int color;
                 unsafe
@@ -342,7 +342,7 @@ namespace GTA
             }
             set
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_505_2, nameof(VehicleModCollection), nameof(DashboardColor));
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b505_2, nameof(VehicleModCollection), nameof(DashboardColor));
 
                 Function.Call(Hash.SET_VEHICLE_EXTRA_COLOUR_6, _owner.Handle, (int)value);
             }
