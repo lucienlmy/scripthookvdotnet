@@ -196,7 +196,7 @@ namespace GTA
         {
             int value = (int)eventType;
 
-            if (Game.FileVersion >= ExeVersionConsts.b1868)
+            if (Game.FileVersion >= ExeVersions.b1868)
             {
                 return value;
             }

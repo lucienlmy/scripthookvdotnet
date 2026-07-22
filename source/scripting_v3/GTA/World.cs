@@ -1804,7 +1804,7 @@ namespace GTA
             TextureAsset? texAsset = null, bool renderInverted = false,
             bool usePreAlphaDepth = true, bool matchEntityRotOrder = false)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b573_1, nameof(World),
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b573_1, nameof(World),
                 nameof(DrawMarkerEx));
 
             if (texAsset == null)
@@ -2109,7 +2109,7 @@ namespace GTA
         /// <exception cref="GameVersionNotSupportedException">Thrown when called in v1.0.463.1 or earlier game versions.</exception>
         public static bool GetGroundHeightExcludingProps(Vector3 position, out float height, GetGroundHeightMode mode = GetGroundHeightMode.Normal)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b505_2, nameof(GetGroundHeightExcludingProps), nameof(GetGroundHeightExcludingProps));
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b505_2, nameof(GetGroundHeightExcludingProps), nameof(GetGroundHeightExcludingProps));
 
             bool foundCollision;
 

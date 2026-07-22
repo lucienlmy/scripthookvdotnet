@@ -41,7 +41,7 @@ namespace GTA
         /// </exception>
         public static void CullExteriorObjectShadowThisFrame(Model nameHash)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b757_2, nameof(Interior), nameof(CullExteriorObjectShadowThisFrame));
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b757_2, nameof(Interior), nameof(CullExteriorObjectShadowThisFrame));
             Function.Call(Hash.ENABLE_SHADOW_CULL_MODEL_THIS_FRAME, nameHash);
         }
 

@@ -205,7 +205,7 @@ namespace GTA
         /// </exception>
         public void SetEntitySetTintIndex(string entitySetName, int index)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b877_1, nameof(InteriorProxy), nameof(SetEntitySetTintIndex));
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b877_1, nameof(InteriorProxy), nameof(SetEntitySetTintIndex));
             Function.Call(Hash.SET_INTERIOR_ENTITY_SET_TINT_INDEX, Handle, entitySetName, index);
         }
 

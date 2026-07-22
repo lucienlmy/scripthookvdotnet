@@ -50,7 +50,7 @@ namespace GTA
         {
             get
             {
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b372_2,
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b372_2,
                     nameof(CinematicCameraDirector), nameof(IsRenderingMountedCam));
 
                 // This function internally calls `camCinematicDirector::IsRenderingCinematicMountedCamera()`, hence
@@ -97,7 +97,7 @@ namespace GTA
                 // `camCinematicDirector::IsCinematicInputActive()`, so probably we can to create custom functions
                 // to call `IsCinematicInputActive()` in versions earlier than v1.0.1493.0. It may be doubtful that is
                 // worth it, though...
-                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b1493,
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b1493,
                     nameof(CinematicCameraDirector), nameof(IsCinematicCamInputActive));
 
                 return Function.Call<bool>(Hash.IS_CINEMATIC_CAM_INPUT_ACTIVE);

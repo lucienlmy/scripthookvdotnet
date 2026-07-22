@@ -204,7 +204,7 @@ namespace GTA
         /// </returns>
         public Ped CloneAlt(bool linkBlends = true, bool cloneCompressedDamage = true)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b463_1, nameof(Ped),
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b463_1, nameof(Ped),
                 nameof(CloneAlt));
 
             const bool RegisterAsNetworkObject = true;
@@ -248,7 +248,7 @@ namespace GTA
         /// </param>
         public void CloneToTargetAlt(Ped target, bool cloneCompressedDamage = true)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.b463_1, nameof(Ped),
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b463_1, nameof(Ped),
                 nameof(CloneToTargetAlt));
 
             Function.Call(Hash.CLONE_PED_TO_TARGET_ALT, Handle, target, cloneCompressedDamage);
@@ -2725,7 +2725,7 @@ namespace GTA
         {
             get
             {
-                if (Game.FileVersion >= ExeVersionConsts.b463_1)
+                if (Game.FileVersion >= ExeVersions.b463_1)
                 {
                     return Function.Call<uint>(Hash.GET_AMBIENT_VOICE_NAME_HASH, Handle);
                 }
@@ -2737,7 +2737,7 @@ namespace GTA
             }
             set
             {
-                if(Game.FileVersion >= ExeVersionConsts.b463_1)
+                if(Game.FileVersion >= ExeVersions.b463_1)
                 {
                     Function.Call(Hash.SET_AMBIENT_VOICE_NAME_HASH, Handle, value);
                     return;
