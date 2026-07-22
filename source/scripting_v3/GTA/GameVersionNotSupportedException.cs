@@ -111,6 +111,7 @@ namespace GTA
             { ExeVersions.b3725, GameVersion.v1_0_3725_0 },
             { ExeVersions.b3751, GameVersion.v1_0_3751_0 },
             { ExeVersions.b3788, GameVersion.v1_0_3788_0 },
+            { ExeVersions.b3889, GameVersion.v1_0_3889_0 },
         };
 
         internal GameVersionNotSupportedException(Version minSupportedGameVersion, string className, string propertyOrMethodName) : base(BuildErrorMessage(minSupportedGameVersion, className, propertyOrMethodName))
