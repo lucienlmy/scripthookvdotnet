@@ -223,7 +223,6 @@ internal:
     static array<WinForms::Keys>^ reloadKeyBinding = { WinForms::Keys::None };
     static array<WinForms::Keys>^ consoleKeyBinding = { WinForms::Keys::F4 };
     static unsigned int scriptTimeoutThreshold = 5000;
-    static bool shouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker = true;
     static bool AutoLoadScripts = true;
 
     // We use this domain to prevent from the keyboard thread reading stale values, and to protect against race
@@ -582,14 +581,6 @@ static void ScriptHookVDotNet_ManagedInit()
             }
             else if (String::Equals(keyStr, "ScriptsLocation", StringComparison::OrdinalIgnoreCase))
                 scriptPath = valueStr->Trim('"');
-            else if (String::Equals(keyStr, "WarnOfDeprecatedScriptsWithTicker", StringComparison::OrdinalIgnoreCase))
-            {
-                bool outVal;
-                if (Boolean::TryParse(valueStr, outVal))
-                {
-                    ScriptHookVDotNet::shouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker = outVal;
-                }
-            }
             else if (String::Equals(keyStr, "AutoLoadScripts", StringComparison::OrdinalIgnoreCase))
             {
                 bool outVal;
@@ -616,7 +607,6 @@ static void ScriptHookVDotNet_ManagedInit()
     }
 
     domain->ScriptTimeoutThreshold = ScriptHookVDotNet::scriptTimeoutThreshold;
-    domain->ShouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker = ScriptHookVDotNet::shouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker;
 
     // Set functions for Thread Local Storage (TLS), so scripts can do tasks that need variables in the TLS of the main thread in their script thread
     domain->InitTlsStuffForTlsContextSwitch(static_cast<IntPtr>(GetTlsContext), static_cast<IntPtr>(SetTlsContext),
