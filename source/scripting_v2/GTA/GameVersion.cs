@@ -3,6 +3,8 @@
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
 
+using System;
+
 namespace GTA
 {
     /// <summary>
@@ -16,6 +18,7 @@ namespace GTA
     /// compare <see cref="Game.Version"/> with the internal value of <see cref="VER_1_0_2060_0_STEAM"/>, which is
     /// <c>60</c>.
     /// </remarks>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum GameVersion
     {
         Unknown = 0,

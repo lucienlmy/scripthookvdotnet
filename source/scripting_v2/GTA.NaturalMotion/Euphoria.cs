@@ -8,6 +8,7 @@ using System.Collections.Generic;
 
 namespace GTA.NaturalMotion
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class Euphoria
     {
         #region Fields

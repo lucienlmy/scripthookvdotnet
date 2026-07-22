@@ -3,11 +3,14 @@
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
 
+using System;
+
 namespace GTA.NaturalMotion
 {
     /// <summary>
     /// A helper class for building a <seealso cref="Message"/> and sending it to a given <see cref="Ped"/>.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public abstract class CustomHelper : Message
     {
         #region Fields

@@ -3,11 +3,14 @@
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
 
+using System;
+
 namespace GTA
 {
     /// <summary>
     /// An enumeration of possible bone tag values for <see cref="Ped"/>, which is for <c>eAnimBoneTag</c>.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum Bone
     {
         SKEL_ROOT = 0x0,

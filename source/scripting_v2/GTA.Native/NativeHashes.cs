@@ -1,9 +1,12 @@
 // This file was generated with https://github.com/scripthookvdotnet/scripthookvdotnet-nativegen
 
+using System;
+
 namespace GTA
 {
     namespace Native
     {
+        [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
         public enum Hash : ulong
         {
             /*

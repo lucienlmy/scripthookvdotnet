@@ -10,8 +10,10 @@ using System.Collections.Generic;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class PedGroup : IEquatable<PedGroup>, IEnumerable<Ped>, IHandleable, IDisposable
     {
+        [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
         public class enumerator : IEnumerator<Ped>
         {
             #region Fields

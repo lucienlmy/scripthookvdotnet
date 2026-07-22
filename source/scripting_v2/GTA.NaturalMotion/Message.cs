@@ -14,6 +14,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// A base class for manually building a NaturalMotion Euphoria message.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class Message
     {
         #region Fields

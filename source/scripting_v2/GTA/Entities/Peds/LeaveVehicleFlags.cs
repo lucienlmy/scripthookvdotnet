@@ -8,6 +8,7 @@ using System;
 namespace GTA
 {
     [Flags]
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum LeaveVehicleFlags
     {
         None = 0,

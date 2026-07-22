@@ -9,6 +9,7 @@ using System.Windows.Forms;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public abstract class Script : IDisposable
     {
         #region Fields

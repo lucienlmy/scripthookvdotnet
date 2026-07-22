@@ -3,6 +3,8 @@
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
 
+using System;
+
 namespace GTA
 {
     /// <summary>
@@ -12,6 +14,7 @@ namespace GTA
     /// You can find hardcoded model names that code for marker uses to draw markers, such as "<c>PROP_MK_CONE</c>",
     /// in the exe.
     /// </remarks>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum MarkerType
     {
         /// <summary>

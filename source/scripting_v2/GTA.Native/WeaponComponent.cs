@@ -3,8 +3,11 @@
 // License: https://github.com/scripthookvdotnet/scripthookvdotnet#license
 //
 
+using System;
+
 namespace GTA.Native
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum WeaponComponent : uint
     {
         AdvancedRifleClip01 = 0xFA8FA10F,
