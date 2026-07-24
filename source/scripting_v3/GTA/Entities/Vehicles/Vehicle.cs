@@ -1454,13 +1454,14 @@ namespace GTA
         }
 
         /// <summary>
-        /// Sets a value indicating whether this <see cref="Vehicle"/> has its horn enabled.
+        /// Gets or sets a value indicating whether this <see cref="Vehicle"/> has its horn enabled.
         /// </summary>
         /// <value>
         /// <see langword="true" /> if this <see cref="Vehicle"/> has its horn enabled; otherwise, <see langword="false" />.
         /// </value>
         public bool IsHornEnabled
         {
+            get => SHVDN.NativeMemory.Vehicle.IsHornEnabled(Handle);
             set => Function.Call(Hash.SET_HORN_ENABLED, Handle, value);
         }
 
