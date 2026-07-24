@@ -2714,18 +2714,6 @@ namespace GTA
         }
 
         /// <summary>
-        /// Completely enables or disables this <see cref="Vehicle"/>'s flight mode, used for <see cref="VehicleHash.Deluxo"/> and <see cref="VehicleHash.Oppressor2"/>.
-        /// Only available in v1.0.1290.1 or later.
-        /// </summary>
-        /// <param name="allowed">Whether to allow the <see cref="Vehicle"/> to switch to flight mode or not.</param>
-        public void SetSpecialFlightModeAllowed(bool allowed)
-        {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b1290_1, nameof(Vehicle), nameof(SetSpecialFlightModeAllowed));
-
-            Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Handle, allowed);
-        }
-
-        /// <summary>
         /// Gets or sets a value that indicates whether this <see cref="Vehicle"/> is allowed to switch to flight mode.
         /// </summary>
         /// <remarks>
