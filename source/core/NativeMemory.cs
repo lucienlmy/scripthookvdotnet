@@ -2015,6 +2015,13 @@ namespace SHVDN
                 // The values for special flight mode (e.g. Deluxo) are present only in b1290 or later versions
                 if (gameVersion >= 38)
                 {
+                    address = MemScanner.FindPatternBmh("\x40\x38\xb8\x00\x00\x00\x00\x74\x00\x48\x8b\xc8\xe8\x00\x00\x00\x00\x0f\x2e\x05", "xxx????x?xxxx????xxx");
+
+                    if(address != null)
+                    {
+                        SpecialFlightModeAllowedOffset = *(int*)(address + 3);
+                    }     
+
                     address = MemScanner.FindPatternBmh("\x41\x0F\x2F\xC1\x72\x2E\xF6\x83", "xxxxxxxx");
                     if (address != null)
                     {
@@ -2100,6 +2107,7 @@ namespace SHVDN
                 return (byte*)(address + CVehicleEngineOffset);
             }
 
+            public static int SpecialFlightModeAllowedOffset { get; }
             public static int SpecialFlightTargetRatioOffset { get; }
             public static int SpecialFlightWingRatioOffset { get; }
             public static int SpecialFlightCurrentRatioOffset { get; }

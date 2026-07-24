@@ -2726,6 +2726,34 @@ namespace GTA
         }
 
         /// <summary>
+        /// Gets or sets a value that indicates whether this <see cref="Vehicle"/> is allowed to switch to flight mode.
+        /// </summary>
+        /// <remarks>
+        /// Used for the <see cref="VehicleHash.Deluxo"/> and <see cref="VehicleHash.Oppressor2"/>.
+        /// </remarks>
+        /// <exception cref="GameVersionNotSupportedException">
+        /// Thrown if the setter is called prior to v1.0.1290.1.
+        /// </exception>
+        public bool SpecialFlightModeAllowed
+        {
+            get
+            {
+                if (!TryGetMemoryAddress(out IntPtr address) || SHVDN.NativeMemory.Vehicle.SpecialFlightModeAllowedOffset == 0)
+                {
+                    return false;
+                }
+
+                return SHVDN.MemDataMarshal.ReadByte(address + SHVDN.NativeMemory.Vehicle.SpecialFlightModeAllowedOffset) != 0;
+            }
+            set
+            {
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b1290_1, nameof(Vehicle), nameof(SpecialFlightModeAllowed));
+
+                Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Handle, value);
+            }
+        }
+
+        /// <summary>
         /// Gets or sets the current ratio indicating how much the <see cref="Vehicle"/> is transformed to hover mode for special flight mode,
         /// which is used for <see cref="VehicleHash.Deluxo"/> and <see cref="VehicleHash.Oppressor2"/>.
         /// Only available in v1.0.1290.1 or later.
