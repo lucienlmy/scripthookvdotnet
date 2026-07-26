@@ -2710,8 +2710,7 @@ namespace GTA
                 ThrowHelper.ThrowEnumArgumentOutOfRangeException(nameof(modifier));
             }
 
-            SHVDN.NativeMemory.PlayAmbientSpeech(MemoryAddress, StringHash.AtPartialStringHash(context),
-                StringHash.AtStringHash(voiceName), modifier.GetInternalName(), variation);
+            SHVDN.NativeMemory.Ped.PlayAmbientSpeech(MemoryAddress, StringHash.AtPartialStringHash(context), StringHash.AtStringHash(voiceName), modifier.GetInternalName(), variation);
         }
 
         /// <summary>
@@ -2745,7 +2744,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return 0;
 
-                return SHVDN.NativeMemory.GetAmbientVoiceNameHash(address);
+                return SHVDN.NativeMemory.Ped.GetAmbientVoiceNameHash(address);
             }
             set
             {
@@ -2758,7 +2757,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return;
 
-                SHVDN.NativeMemory.SetAmbientVoiceNameHash(address, value);
+                SHVDN.NativeMemory.Ped.SetAmbientVoiceNameHash(address, value);
             }
         }
 

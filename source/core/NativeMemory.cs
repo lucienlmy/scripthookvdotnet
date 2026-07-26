@@ -741,35 +741,6 @@ namespace SHVDN
                 s_disableArtificialLightsAddress = Rel32<byte>(address, 0x10);
             }
 
-            address = MemScanner.FindPatternBmh("\x48\x8B\x88\x00\x00\x00\x00\x41\xB0\x01\xE8", "xxx????xxxx");
-            if (address != null)
-            {
-                s_setAmbientVoiceNameFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void>)(Rel32(address, 0xB));
-                s_pedAudSpeechAudioEntityOffset = *(int*)(address + 0x3);
-            }
-
-            address = MemScanner.FindPatternBmh("\x83\x65\x18\x00\x48\x8D\x15\x00\x00\x00\x00\xF3\x0F\x10\x45\x64", "xxxxxxx????xxxxx");
-            if (address != null)
-            {
-                originVectorAddress = Rel32<FVector3>(address, 0x7);
-            }
-
-            address = MemScanner.FindPatternBmh("\x83\x4C\x24\x38\xFF\x44\x89\x44\x24\x30\x4C\x89\x44\x24\x28\x89\x7C\x24\x20\x48\x8B", "xxxxxxxxxxxxxxxxxxxxx");
-            if(address != null)
-            {
-                audSpeechAudioEntity__Say = (delegate* unmanaged[Stdcall]<IntPtr, uint, char*, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int>)(Rel32(address, 0x21));
-            }
-
-            // These patterns also work in newer game versions but are not required currently.
-            if (GameFileVersion < new Version(1, 0, 463, 1))
-            {
-                address = MemScanner.FindPatternBmh("\x84\xC0\x75\x27\x88\x83\x00\x00\x00\x00\x8A\x83\x00\x00\x00\x00\xC7\x83\x00\x00\x00\x00\x9A\xF0\xBF\x87", "xxxxxx????xx????xx????xxxx");
-                if (address != null)
-                {
-                    s_ambientVoiceNameHashOffset = *(int*)(address - 0x9);
-                }
-            }
-
             // Nopping this enables to spawn some drawable objects without a dedicated collision (e.g. prop_fan_palm_01a)
             address = MemScanner.FindPatternBmh("\x74\x00\x00\x00\x00\x74\x00\xe8\x00\x00\x00\x00\x48\x85\xc0\x75\x00\x38\x00\x00\x0f\x84\x00\x00\x00\x00\x48\x8d\x4d\x00\xe8\x00\x00\x00\x00\x66\x89\x45\x00\x8b\x45\x00\x8b\xc8\x33\x4d", "x????x?x????xxxx?x??xx????xxx?x????xxx?xx?xxxx");
             if (address != null)
@@ -1143,8 +1114,6 @@ namespace SHVDN
         #endregion
 
         #region -- World Data --
-
-        private static FVector3* originVectorAddress;
 
         private static int* s_cursorSpriteAddr;
 
@@ -2344,6 +2313,9 @@ namespace SHVDN
 
         public static unsafe class Ped
         {
+            private static delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void> s_audSpeechAudioEntity__SetAmbientVoiceNameFunc;
+            private static delegate* unmanaged[Stdcall]<IntPtr, uint, IntPtr, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int> s_audSpeechAudioEntity__SayFunc;
+
             static Ped()
             {
                 byte* address;
@@ -2505,6 +2477,29 @@ namespace SHVDN
                     VisualFieldMaxElevationAngleOffset = SeeingRangeOffset + 0x14;
                     VisualFieldCenterAngleOffset = SeeingRangeOffset + 0x18;
                 }
+
+                address = MemScanner.FindPatternBmh("\x48\x8B\x88\x00\x00\x00\x00\x41\xB0\x01\xE8", "xxx????xxxx");
+                if (address != null)
+                {
+                    s_audSpeechAudioEntity__SetAmbientVoiceNameFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void>)(Rel32(address, 0xB));
+                    AudSpeechAudioEntityOffset = *(int*)(address + 0x3);
+                }
+
+                address = MemScanner.FindPatternBmh("\x83\x4C\x24\x38\xFF\x44\x89\x44\x24\x30\x4C\x89\x44\x24\x28\x89\x7C\x24\x20\x48\x8B", "xxxxxxxxxxxxxxxxxxxxx");
+                if (address != null)
+                {
+                    s_audSpeechAudioEntity__SayFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, IntPtr, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int>)(Rel32(address, 0x21));
+                }
+
+                // Only needed before b463 due to the absence of GET_AMBIENT_VOICE_NAME_HASH.
+                if (GameFileVersion < new Version(1, 0, 463, 1))
+                {
+                    address = MemScanner.FindPatternBmh("\x84\xC0\x75\x27\x88\x83\x00\x00\x00\x00\x8A\x83\x00\x00\x00\x00\xC7\x83\x00\x00\x00\x00\x9A\xF0\xBF\x87", "xxxxxx????xx????xx????xxxx");
+                    if (address != null)
+                    {
+                        AudSpeechAudioEntity__AmbientVoiceNameHashOffset = *(int*)(address - 0x9);
+                    }
+                }
             }
 
             #region -- CPed Data --
@@ -2624,6 +2619,13 @@ namespace SHVDN
             /// on `<c>CPed</c>` (as a `<c>CPedResetFlags::ePedResetFlagsBitSet</c>`).
             /// </summary>
             public static int CPed__PedResetFlagsOffset { get; }
+
+            public static int AudSpeechAudioEntityOffset { get; }
+
+            /// <remarks>
+            /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
+            /// </remarks>
+            public static int AudSpeechAudioEntity__AmbientVoiceNameHashOffset { get; }
 
             #region -- Ped Intelligence Offsets --
 
@@ -2863,6 +2865,87 @@ namespace SHVDN
                 return (RageAtArrayPtr*)(cPedInventoryAddress + 0x18);
             }
 
+            #endregion
+
+            #region -- audSpeechAudioEntity Data --
+
+            public static int PlayAmbientSpeech(IntPtr pedAddress, uint contextPHash, uint voiceHash, string speechParams, int variation = 0)
+            {
+                return Say(pedAddress, contextPHash, speechParams, voiceHash, -1, IntPtr.Zero, 0, -1, 1f, variation, new FVector3(0, 0, 0));
+            }
+
+            /// <remarks>
+            /// Since b463 use GET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
+            /// </remarks>
+            public static uint GetAmbientVoiceNameHash(IntPtr pedAddress)
+            {
+                if (AudSpeechAudioEntity__AmbientVoiceNameHashOffset == 0)
+                {
+                    return 0;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return 0;
+                }
+
+                return *(uint*)((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__AmbientVoiceNameHashOffset);
+            }
+
+            /// <remarks>
+            /// Since b463 use SET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
+            /// </remarks>
+            public static void SetAmbientVoiceNameHash(IntPtr pedAddress, uint hash)
+            {
+                if (s_audSpeechAudioEntity__SetAmbientVoiceNameFunc == null)
+                {
+                    return;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return;
+                }
+
+                s_audSpeechAudioEntity__SetAmbientVoiceNameFunc(audSpeechAudioEntityAddress, hash, true);
+            }
+
+
+            private static IntPtr GetAudSpeechAudioEntityAddress(IntPtr pedAddress)
+            {
+                if (pedAddress == IntPtr.Zero || AudSpeechAudioEntityOffset == 0)
+                {
+                    return IntPtr.Zero;
+                }
+
+                return *(IntPtr*)((byte*)pedAddress + AudSpeechAudioEntityOffset);
+            }
+
+            private static int Say(IntPtr pedAddress, uint contextHash, string speechParams, uint voicePHash, int preDelay, IntPtr replyingPed, uint replyingContext, int replyingDelay, float replayProbability, int variation, FVector3 nullSpeakerPosition)
+            {
+                const bool FromScript = true;
+                const int Failed = 0;
+
+                if (s_audSpeechAudioEntity__SayFunc == null)
+                {
+                    return Failed;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return Failed;
+                }
+
+                IntPtr speechParamsPtr = ScriptDomain.CurrentDomain.PinString(speechParams);
+
+                int variationOverride = variation;
+                FVector3 origin = nullSpeakerPosition;
+
+                return s_audSpeechAudioEntity__SayFunc(audSpeechAudioEntityAddress, contextHash, speechParamsPtr, voicePHash, preDelay, IntPtr.Zero, replyingContext, replyingDelay, replayProbability, FromScript, &variationOverride, &origin);
+            }
             #endregion
         }
 
@@ -6117,70 +6200,6 @@ namespace SHVDN
         {
             var task = new NmMessageTask(targetHandle, messageName, boolIntFloatParameters, stringVector3ArrayParameters);
             ScriptDomain.CurrentDomain.ExecuteTaskWithGameThreadTlsContext(task);
-        }
-
-        #endregion
-
-
-        #region -- Audio --
-
-        /// <remarks>
-        /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
-        /// </remarks>
-        public static int s_ambientVoiceNameHashOffset;
-
-        public static int s_pedAudSpeechAudioEntityOffset;
-
-        private static delegate* unmanaged[Stdcall]<IntPtr, uint, bool, void> s_setAmbientVoiceNameFunc;
-        private static delegate* unmanaged[Stdcall]<IntPtr, uint, char*, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int> audSpeechAudioEntity__Say;
-
-        public static void PlayAmbientSpeech(IntPtr pedAddress, uint contextPHash, uint voiceHash, string speechParams, int variation = 0)
-        {
-            if (pedAddress == IntPtr.Zero || s_pedAudSpeechAudioEntityOffset == 0 || audSpeechAudioEntity__Say == null || originVectorAddress == null)
-            {
-                return;
-            }
-
-            IntPtr audSpeechAudioEntityAddress = *(IntPtr*)((byte*)pedAddress + s_pedAudSpeechAudioEntityOffset);
-            if (audSpeechAudioEntityAddress == IntPtr.Zero)
-            {
-                return;
-            }
-
-            char* speechParamsPtr = (char*)ScriptDomain.CurrentDomain.PinString(speechParams).ToPointer();
-
-            audSpeechAudioEntity__Say(audSpeechAudioEntityAddress, contextPHash, speechParamsPtr,
-                voiceHash, -1, IntPtr.Zero, 0, -1, 1f, true, &variation, originVectorAddress);
-        }
-
-        /// <remarks>
-        /// Since b463 use GET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
-        /// </remarks>
-        public static uint GetAmbientVoiceNameHash(IntPtr pedAddress)
-        {
-            if (s_pedAudSpeechAudioEntityOffset == 0 || s_setAmbientVoiceNameFunc == null)
-            {
-                return 0;
-            }
-
-            IntPtr audSpeechAudioEntityAddress = *(IntPtr*)((byte*)pedAddress + s_pedAudSpeechAudioEntityOffset);
-
-            return *(uint*)((byte*)audSpeechAudioEntityAddress + s_ambientVoiceNameHashOffset);
-        }
-
-        /// <remarks>
-        /// Since b463 use SET_AMBIENT_VOICE_NAME_HASH instead as otherwise the necessary values are not assigned.
-        /// </remarks>
-        public static void SetAmbientVoiceNameHash(IntPtr pedAddress, uint hash)
-        {
-            if(s_pedAudSpeechAudioEntityOffset == 0 || s_setAmbientVoiceNameFunc == null)
-            {
-                return;
-            }
-
-            IntPtr audSpeechAudioEntityAddress = *(IntPtr*)((byte*)pedAddress + s_pedAudSpeechAudioEntityOffset);
-
-            s_setAmbientVoiceNameFunc(audSpeechAudioEntityAddress, hash, true);
         }
 
         #endregion
