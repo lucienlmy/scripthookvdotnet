@@ -2547,6 +2547,9 @@ namespace SHVDN
                 if(address != null)
                 {
                     AudSpeechAudioEntity__DisablePainOffset = *(int*)(address - 0x4);
+
+                    AudSpeechAudioEntity__SpeakingDisabledOffset = AudSpeechAudioEntity__DisablePainOffset + 1;
+                    AudSpeechAudioEntity__SpeakingDisabledSyncedOffset = AudSpeechAudioEntity__DisablePainOffset + 2;
                 }
 
                 // Only needed before b463 due to the absence of GET_AMBIENT_VOICE_NAME_HASH.
@@ -2688,6 +2691,8 @@ namespace SHVDN
             public static int AudSpeechAudioEntity__AmbientVoiceNameHashOffset { get; }
 
             public static int AudSpeechAudioEntity__DisablePainOffset { get; }
+            public static int AudSpeechAudioEntity__SpeakingDisabledOffset { get; }
+            public static int AudSpeechAudioEntity__SpeakingDisabledSyncedOffset { get; }
 
             #region -- Ped Intelligence Offsets --
 
@@ -2988,6 +2993,26 @@ namespace SHVDN
                 }
 
                 return *(byte*)((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__DisablePainOffset) != 0;
+            }
+
+            public static void SetAmbientSpeechEnabled(IntPtr pedAddress, bool value)
+            {
+                if (AudSpeechAudioEntity__SpeakingDisabledOffset == 0 || AudSpeechAudioEntity__SpeakingDisabledSyncedOffset == 0)
+                {
+                    return;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return;
+                }
+
+                // We invert the value here!
+                byte byteValue = (byte)(value == false ? 1 : 0);
+
+                *((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__SpeakingDisabledOffset) = byteValue;
+                *((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__SpeakingDisabledSyncedOffset) = byteValue;
             }
 
             private static IntPtr GetAudSpeechAudioEntityAddress(IntPtr pedAddress)

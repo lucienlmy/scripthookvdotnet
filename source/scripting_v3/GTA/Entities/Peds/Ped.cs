@@ -2704,7 +2704,14 @@ namespace GTA
 
         public bool IsAnySpeechPlaying => Function.Call<bool>(Hash.IS_ANY_SPEECH_PLAYING, Handle);
 
-        public bool IsAmbientSpeechEnabled => !Function.Call<bool>(Hash.IS_AMBIENT_SPEECH_DISABLED, Handle);
+        /// <summary>
+        /// Gets or sets a value that indicates whether this <see cref="Ped"/> can play ambient speech.
+        /// </summary>
+        public bool IsAmbientSpeechEnabled
+        {
+            get => !Function.Call<bool>(Hash.IS_AMBIENT_SPEECH_DISABLED, Handle);
+            set => SHVDN.NativeMemory.Ped.SetAmbientSpeechEnabled(MemoryAddress, value);
+        }
 
         public void PlayAmbientSpeech(string speechName, SpeechModifier modifier = SpeechModifier.Standard)
         {
