@@ -2689,8 +2689,12 @@ namespace GTA
         #region Speeches
         // This region is for properties and methods that access an audSpeechAudioEntity instance
 
+        /// <summary>
+        /// Gets or sets a value that indicates whether this <see cref="Ped"/> can audibly react to pain.
+        /// </summary>
         public bool IsPainAudioEnabled
         {
+            get => !SHVDN.NativeMemory.Ped.GetIsPainAudioDisabled(MemoryAddress);
             set => Function.Call(Hash.DISABLE_PED_PAIN_AUDIO, Handle, !value);
         }
 

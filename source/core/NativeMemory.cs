@@ -2543,6 +2543,12 @@ namespace SHVDN
                     s_audSpeechAudioEntity__SayFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, IntPtr, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int>)(Rel32(address, 0x21));
                 }
 
+                address = MemScanner.FindPatternBmh("\x0F\x85\xFF\xFF\xFF\xFF\x83\xF9\x0E\x0F\x84\xFF\xFF\xFF\xFF\x44\x38\x0D\xFF\xFF\xFF\xFF\x41\xBD\x02\x00\x00\x00", "xx????xxxxx????xxx????xxxxxx");
+                if(address != null)
+                {
+                    AudSpeechAudioEntity__DisablePainOffset = *(int*)(address - 0x4);
+                }
+
                 // Only needed before b463 due to the absence of GET_AMBIENT_VOICE_NAME_HASH.
                 if (GameFileVersion < new Version(1, 0, 463, 1))
                 {
@@ -2680,6 +2686,8 @@ namespace SHVDN
             /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
             /// </remarks>
             public static int AudSpeechAudioEntity__AmbientVoiceNameHashOffset { get; }
+
+            public static int AudSpeechAudioEntity__DisablePainOffset { get; }
 
             #region -- Ped Intelligence Offsets --
 
@@ -2966,6 +2974,21 @@ namespace SHVDN
                 s_audSpeechAudioEntity__SetAmbientVoiceNameFunc(audSpeechAudioEntityAddress, hash, true);
             }
 
+            public static bool GetIsPainAudioDisabled(IntPtr pedAddress)
+            {
+                if(AudSpeechAudioEntity__DisablePainOffset == 0)
+                {
+                    return false;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return false;
+                }
+
+                return *(byte*)((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__DisablePainOffset) != 0;
+            }
 
             private static IntPtr GetAudSpeechAudioEntityAddress(IntPtr pedAddress)
             {
