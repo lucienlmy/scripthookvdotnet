@@ -2232,6 +2232,7 @@ namespace GTA
         /// </summary>
         public bool DiesOnLowHealth
         {
+            get => GetConfigFlag(PedConfigFlagToggles.ForceDieIfInjured);
             set => Function.Call(Hash.SET_PED_DIES_WHEN_INJURED, Handle, value);
         }
 
