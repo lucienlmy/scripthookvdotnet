@@ -938,6 +938,7 @@ namespace GTA
         /// </value>
         public bool KeepTaskWhenMarkedAsNoLongerNeeded
         {
+            get => GetConfigFlag(PedConfigFlagToggles.KeepTasksAfterCleanUp);
             set => Function.Call(Hash.SET_PED_KEEP_TASK, Handle, value);
         }
 
