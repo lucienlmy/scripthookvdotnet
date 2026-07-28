@@ -338,6 +338,21 @@ namespace GTA
             Function.Call(Hash.SET_GAME_PAUSED, value);
         }
 
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether riot mode is enabled.
+        /// </summary>
+        /// <remarks>
+        /// When riot mode is enabled, peds become hostile towards other peds and the player.
+        /// They are equipped with infinite ammunition and either a pistol or a Micro SMG, and they always select their best available weapon.
+        /// Peds will not attack members of their own <see cref="RelationshipGroup"/> and will ignore other groups configured as friendly.
+        /// </remarks>
+        public static bool IsRiotModeEnabled
+        {
+            get => SHVDN.NativeMemory.IsRiotModeEnabled;
+            set => Function.Call(Hash.SET_RIOT_MODE_ENABLED, value);
+        }
+
         /// <summary>
         /// Creates an input box for the user to input text using the keyboard.
         /// </summary>
@@ -767,20 +782,6 @@ namespace GTA
                 byte* address = startAddress == IntPtr.Zero ? SHVDN.MemScanner.FindPatternNaive(pattern, mask) : SHVDN.MemScanner.FindPatternNaive(pattern, mask, startAddress);
                 return address == null ? IntPtr.Zero : new IntPtr(address);
             }
-        }
-
-        /// <summary>
-        /// Gets or sets a value that indicates whether riot mode is enabled.
-        /// </summary>
-        /// <remarks>
-        /// When riot mode is enabled, peds become hostile towards other peds and the player.
-        /// They are equipped with infinite ammunition and either a pistol or a Micro SMG, and they always select their best available weapon.
-        /// Peds will not attack members of their own <see cref="RelationshipGroup"/> and will ignore other groups configured as friendly.
-        /// </remarks>
-        public static bool IsRiotModeEnabled
-        {
-            get => SHVDN.NativeMemory.IsRiotModeEnabled;
-            set => Function.Call(Hash.SET_RIOT_MODE_ENABLED, value);
         }
     }
 }
