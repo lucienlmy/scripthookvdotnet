@@ -1700,6 +1700,11 @@ namespace SHVDN
 
             public static int FirstVehicleFlagsOffset { get; }
 
+            private static int AudVehicleAudioEntityOffset;
+
+            public static int AudVehicleAudioEntity__IsHornEnabledOffset;
+            public static int AudVehicleAudioEntity__IsHornEnabledBitTest;
+
             static Vehicle()
             {
                 byte* address;
@@ -1979,6 +1984,19 @@ namespace SHVDN
                     ShouldShowOnlyVehicleTiresWithPositiveHealthOffset = *(int*)(address + 2);
                 }
 
+                address = MemScanner.FindPatternBmh("\xCB\x1C\x4A\xC5\x49\x8B\x8D\x00\x00\x00\x00\x45\x33\xC9\x45\x33\xC0", "xxxxxxx????xxxxxx");
+                if (address != null)
+                {
+                    AudVehicleAudioEntityOffset = *(int*)(address + 0x7);
+                }
+
+                address = MemScanner.FindPatternBmh("\x0F\x28\xF9\x0F\x85\xFF\xFF\x00\x00\xF6\xFF\xFF\xFF\x00\x00\xFF\x0F\x84", "xxxxx??xxx???xx?xx");
+                if (address != null)
+                {
+                    AudVehicleAudioEntity__IsHornEnabledOffset = *(int*)(address + 0xB);
+                    AudVehicleAudioEntity__IsHornEnabledBitTest = *(byte*)(address + 0xF);
+                }
+
                 // Vehicle Wheels has the owner vehicle pointer and new wheel functions are used since b1365
                 if (gameVersion >= 40)
                 {
@@ -2129,6 +2147,26 @@ namespace SHVDN
                 return *(byte*)(vehicleModelAddress + ModelSirenIdOffset);
             }
 
+            public static bool IsHornEnabled(int vehicleHandle)
+            {
+                IntPtr address = GetEntityAddress(vehicleHandle);
+
+                if (address == IntPtr.Zero)
+                {
+                    return false;
+                }
+
+                if(AudVehicleAudioEntityOffset == 0 || AudVehicleAudioEntity__IsHornEnabledBitTest == 0 || AudVehicleAudioEntity__IsHornEnabledOffset == 0)
+                {
+                    return false;
+                }
+
+                IntPtr audVehicleAudioEntityAddress = *(IntPtr*)((byte*)address + AudVehicleAudioEntityOffset);
+
+                byte flags = *(byte*)((long)audVehicleAudioEntityAddress + AudVehicleAudioEntity__IsHornEnabledOffset);
+
+                return (flags & AudVehicleAudioEntity__IsHornEnabledBitTest) != 0;
+            }
             #endregion
 
             #region -- Vehicle Wheel Data --
