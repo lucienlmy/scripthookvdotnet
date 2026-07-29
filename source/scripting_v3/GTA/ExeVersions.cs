@@ -78,5 +78,6 @@ namespace GTA
         internal static readonly Version b3725 = new(1, 0, 3725, 0);
         internal static readonly Version b3751 = new(1, 0, 3751, 0);
         internal static readonly Version b3788 = new(1, 0, 3788, 0);
+        internal static readonly Version b3889 = new(1, 0, 3889, 0);
     }
 }
