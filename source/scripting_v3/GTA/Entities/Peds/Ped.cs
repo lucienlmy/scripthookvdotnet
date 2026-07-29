@@ -712,12 +712,30 @@ namespace GTA
 
         /// <summary>
         /// Gets or sets how much money this <see cref="Ped"/> is carrying.
-        /// The max value is 65535.
         /// </summary>
-        public int Money
+        public uint MoneyCarried
         {
-            get => Function.Call<int>(Hash.GET_PED_MONEY, Handle);
-            set => Function.Call(Hash.SET_PED_MONEY, Handle, value);
+            get
+            {
+                if (!TryGetMemoryAddress(out IntPtr address) || SHVDN.NativeMemory.Ped.MoneyCarriedOffset == 0)
+                {
+                    return 0;
+                }
+
+                return SHVDN.MemDataMarshal.ReadUInt32(address + SHVDN.NativeMemory.Ped.MoneyCarriedOffset);
+            }
+            set
+            {
+                if (!TryGetMemoryAddress(out IntPtr address) || SHVDN.NativeMemory.Ped.MoneyCarriedOffset == 0)
+                {
+                    return;
+                }
+
+                SHVDN.MemDataMarshal.WriteUInt32(address + SHVDN.NativeMemory.Ped.MoneyCarriedOffset, value);
+
+                // Set the same flag as SET_PED_MONEY does.
+                SetConfigFlag(PedConfigFlagToggles.MoneyHasBeenGivenByScript, true);
+            }
         }
 
         /// <summary>

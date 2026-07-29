@@ -2516,6 +2516,12 @@ namespace SHVDN
                     VisualFieldCenterAngleOffset = SeeingRangeOffset + 0x18;
                 }
 
+                address = MemScanner.FindPatternBmh("\x7C\x00\x41\xb8\x65\x07\x9D\xA4", "x?xxxxxx");
+                if(address != null)
+                {
+                    MoneyCarriedOffset = *(int*)(address - 0x5);
+                }
+
                 address = MemScanner.FindPatternBmh("\x48\x8B\x88\x00\x00\x00\x00\x41\xB0\x01\xE8", "xxx????xxxx");
                 if (address != null)
                 {
@@ -2612,6 +2618,8 @@ namespace SHVDN
             public static int IsUsingWetEffectOffset { get; }
 
             public static int SweatOffset { get; }
+
+            public static int MoneyCarriedOffset { get; }
 
             /// <summary>
             /// The value at this offset should be 2 if the ped is a player ped.

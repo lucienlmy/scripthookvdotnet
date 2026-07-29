@@ -169,6 +169,23 @@ namespace GTA
         }
 
         /// <summary>
+        /// Gets or sets how much money this <see cref="Ped"/> is carrying.
+        /// </summary>
+        /// <remarks>
+        /// The max value is 65535.
+        /// <para>
+        /// It is possible that a ped has more than $65535. In certain cases, due to the internal representation
+        /// being an unsigned integer, this returns negative values.
+        /// Use <see cref="MoneyCarried"/> instead which correctly handles this.
+        /// </para>
+        /// </remarks>
+        [Obsolete("Use Ped.MoneyCarried instead, which also removes the $65535 limit.")]
+        public int Money
+        {
+            get => Function.Call<int>(Hash.GET_PED_MONEY, Handle);
+            set => Function.Call(Hash.SET_PED_MONEY, Handle, value);
+        }
+        
         /// Sets the ambient voice to use when this <see cref="Ped"/> speaks.
         /// </summary>
         /// <remarks>
