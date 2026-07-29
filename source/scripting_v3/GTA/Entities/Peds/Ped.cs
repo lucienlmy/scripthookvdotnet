@@ -2702,6 +2702,17 @@ namespace GTA
 
             Function.Call(Hash.PLAY_PED_AMBIENT_SPEECH_WITH_VOICE_NATIVE, Handle, speechName, voiceName, modifier.GetInternalName(), 0);
         }
+
+        public void PlayAmbientSpeech(string context, string voiceName, SpeechModifier modifier, int variation = 0)
+        {
+            if (modifier < 0 || (int)modifier >= SpeechModifierHelpers.s_modiferCount)
+            {
+                ThrowHelper.ThrowEnumArgumentOutOfRangeException(nameof(modifier));
+            }
+
+            SHVDN.NativeMemory.Ped.PlayAmbientSpeech(MemoryAddress, StringHash.AtPartialStringHash(context), StringHash.AtStringHash(voiceName), modifier.GetInternalName(), variation);
+        }
+
         /// <summary>
         /// Stops currently playing speech (pain, ambient, scripted, breathing).
         /// </summary>
@@ -2733,7 +2744,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return 0;
 
-                return SHVDN.NativeMemory.GetAmbientVoiceNameHash(address);
+                return SHVDN.NativeMemory.Ped.GetAmbientVoiceNameHash(address);
             }
             set
             {
@@ -2746,7 +2757,7 @@ namespace GTA
                 if (!TryGetMemoryAddress(out IntPtr address))
                     return;
 
-                SHVDN.NativeMemory.SetAmbientVoiceNameHash(address, value);
+                SHVDN.NativeMemory.Ped.SetAmbientVoiceNameHash(address, value);
             }
         }
 
