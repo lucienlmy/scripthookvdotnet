@@ -8,9 +8,11 @@ using GTA.Native;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public static class UI
     {
         // These two definitions need to have 'modopt(System.Runtime.CompilerServices.IsConst)'.

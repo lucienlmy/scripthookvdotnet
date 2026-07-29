@@ -284,10 +284,6 @@ namespace SHVDN
         /// Gets the dictionary of deprecated script names.
         /// </summary>
         private Dictionary<int, List<string>> DeprecatedScriptAssemblyNamesPerApiVersion { get; set; } = new();
-        /// <summary>
-        /// Gets the value that indicates whether the script domain should warn of deprecated scripts with a ticker.
-        /// </summary>
-        public bool ShouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker { get; set; }
 
         /// <summary>
         /// Initializes the script domain inside its application domain.
@@ -1327,17 +1323,6 @@ namespace SHVDN
 
             void WarnOfScriptsUsingDeprecatedApi()
             {
-                if (ShouldWarnOfScriptsBuiltAgainstDeprecatedApiWithTicker)
-                {
-                    int scriptCountUsingDeprecatedApi = DeprecatedScriptAssemblyNamesPerApiVersion.Values.Aggregate(0, (result, current) => result + current.Count);
-
-                    PostTickerToFeed(
-                        message: $"~s~INFO: ~b~{scriptCountUsingDeprecatedApi.ToString()}~s~ scripts are running but are using the v2 API (ScriptHookVDotNet2.dll), which ~o~is deprecated and not actively supported~s~. It may stop being supported in the future, disabling the ability to run the scripts. You could contact the author(s) or find alternatives to avoid the issue. See the console outputs or the log file for more details.",
-                        isImportant: true,
-                        cacheMessage: false
-                    );
-                }
-
                 foreach (KeyValuePair<int, List<string>> apiVersionAndScriptNameDict in DeprecatedScriptAssemblyNamesPerApiVersion)
                 {
                     int apiVersion = apiVersionAndScriptNameDict.Key;
@@ -1348,10 +1333,9 @@ namespace SHVDN
                     Log.Message(Log.Level.Info, new Log.Options(true),
                         $"Found {scriptAssemblyCount.ToString()} script(s) resolved to the deprecated API version " +
                         $"{apiVersionString} (ScriptHookVDotNet2.dll), though the script(s) are currently running. " +
-                        $"The v2 API is deprecated and no longer actively supported. It may stop being supported in " +
-                        $"the future. You could report to the authors who developed some of the scripts that are " +
-                        $"using the deprecated API, or find alternative scripts to avoid the issue. " +
-                        $"The list of script names:");
+                        $"Although the v2 API is still supported, it is deprecated and no longer actively " +
+                        $"maintained. It may completely stop being supported in the future, so if you are " +
+                        $"a developer, please migrate to v3. The list of script names:");
                     foreach (string scriptName in apiVersionAndScriptNameDict.Value)
                     {
                         Log.Message(Log.Level.Info, new Log.Options(true), scriptName);

@@ -204,7 +204,7 @@ namespace GTA
         /// </returns>
         public Ped CloneAlt(bool linkBlends = true, bool cloneCompressedDamage = true)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_463_1, nameof(Ped),
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b463_1, nameof(Ped),
                 nameof(CloneAlt));
 
             const bool RegisterAsNetworkObject = true;
@@ -248,7 +248,7 @@ namespace GTA
         /// </param>
         public void CloneToTargetAlt(Ped target, bool cloneCompressedDamage = true)
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersionConsts.v1_0_463_1, nameof(Ped),
+            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b463_1, nameof(Ped),
                 nameof(CloneToTargetAlt));
 
             Function.Call(Hash.CLONE_PED_TO_TARGET_ALT, Handle, target, cloneCompressedDamage);
@@ -2720,6 +2720,17 @@ namespace GTA
 
             Function.Call(Hash.PLAY_PED_AMBIENT_SPEECH_WITH_VOICE_NATIVE, Handle, speechName, voiceName, modifier.GetInternalName(), 0);
         }
+
+        public void PlayAmbientSpeech(string context, string voiceName, SpeechModifier modifier, int variation = 0)
+        {
+            if (modifier < 0 || (int)modifier >= SpeechModifierHelpers.s_modiferCount)
+            {
+                ThrowHelper.ThrowEnumArgumentOutOfRangeException(nameof(modifier));
+            }
+
+            SHVDN.NativeMemory.Ped.PlayAmbientSpeech(MemoryAddress, StringHash.AtPartialStringHash(context), StringHash.AtStringHash(voiceName), modifier.GetInternalName(), variation);
+        }
+
         /// <summary>
         /// Stops currently playing speech (pain, ambient, scripted, breathing).
         /// </summary>
@@ -2733,14 +2744,39 @@ namespace GTA
         public void StopCurrentPlayingAmbientSpeech() => Function.Call(Hash.STOP_CURRENT_PLAYING_AMBIENT_SPEECH, Handle);
 
         /// <summary>
-        /// Sets the ambient voice to use when this <see cref="Ped"/> speaks.
+        /// Gets or sets the ambient voice hash this <see cref="Ped"/> uses when speaking.
         /// </summary>
         /// <remarks>
-        /// The voice name will be stored as a joaat hash converted in the same way as <see cref="Game.GenerateHash(string)"/> does.
+        /// The default value is <c>0</c> when no voice has been assigned.
+        /// When setting an invalid voice hash, the value <c>0x87BFF09A</c> (<c>NO_VOICE</c>) is assigned instead.
         /// </remarks>
-        public string Voice
+        public uint AmbientVoiceHash
         {
-            set => Function.Call(Hash.SET_AMBIENT_VOICE_NAME, Handle, value);
+            get
+            {
+                if (Game.FileVersion >= ExeVersions.b463_1)
+                {
+                    return Function.Call<uint>(Hash.GET_AMBIENT_VOICE_NAME_HASH, Handle);
+                }
+
+                if (!TryGetMemoryAddress(out IntPtr address))
+                    return 0;
+
+                return SHVDN.NativeMemory.Ped.GetAmbientVoiceNameHash(address);
+            }
+            set
+            {
+                if(Game.FileVersion >= ExeVersions.b463_1)
+                {
+                    Function.Call(Hash.SET_AMBIENT_VOICE_NAME_HASH, Handle, value);
+                    return;
+                }
+
+                if (!TryGetMemoryAddress(out IntPtr address))
+                    return;
+
+                SHVDN.NativeMemory.Ped.SetAmbientVoiceNameHash(address, value);
+            }
         }
 
         #endregion

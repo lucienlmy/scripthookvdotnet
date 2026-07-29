@@ -4,9 +4,11 @@
 //
 
 using System.Drawing;
+using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public interface IMenuItem
     {
         /** Called when the MenuItem should be drawn */

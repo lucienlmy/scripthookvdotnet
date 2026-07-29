@@ -5,9 +5,11 @@
 
 using GTA.Math;
 using GTA.Native;
+using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public static class Audio
     {
         public static int PlaySoundAt(Entity entity, string soundFile)

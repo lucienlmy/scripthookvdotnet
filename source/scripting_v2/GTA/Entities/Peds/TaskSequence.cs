@@ -13,6 +13,7 @@ namespace GTA
     /// After you create a <see cref="TaskSequence"/> instance, call <see cref="AddTask"/> as many as you want and call <see cref="Close()"/> or <see cref="Close(bool)"/>
     /// right after the instance creation statement.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class TaskSequence : IDisposable
     {
         #region Fields

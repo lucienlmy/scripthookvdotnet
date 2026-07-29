@@ -176,7 +176,7 @@ namespace GTA
         /// <para>
         /// It is possible that a ped has more than $65535. In certain cases, due to the internal representation
         /// being an unsigned integer, this returns negative values.
-        /// Use <see cref="MoneyCarried"/> instead which correct handles this.
+        /// Use <see cref="MoneyCarried"/> instead which correctly handles this.
         /// </para>
         /// </remarks>
         [Obsolete("Use Ped.MoneyCarried instead, which also removes the $65535 limit.")]
@@ -184,6 +184,17 @@ namespace GTA
         {
             get => Function.Call<int>(Hash.GET_PED_MONEY, Handle);
             set => Function.Call(Hash.SET_PED_MONEY, Handle, value);
+        }
+
+        /// Sets the ambient voice to use when this <see cref="Ped"/> speaks.
+        /// </summary>
+        /// <remarks>
+        /// The voice name will be stored as a joaat hash converted in the same way as <see cref="Game.GenerateHash(string)"/> does.
+        /// </remarks>
+        [Obsolete("Use Ped.AmbientVoiceHash = StringHash.AtStringHash(value) instead.")]
+        public string Voice
+        {
+            set => Function.Call(Hash.SET_AMBIENT_VOICE_NAME, Handle, value);
         }
     }
 }

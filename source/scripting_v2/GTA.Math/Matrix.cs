@@ -28,6 +28,7 @@ namespace GTA.Math
     /// </summary>
     [Serializable]
     [StructLayout(LayoutKind.Sequential, Pack = 4)]
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public struct Matrix : IEquatable<Matrix>
     {
         /// <summary>

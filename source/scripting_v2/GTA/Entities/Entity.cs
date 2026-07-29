@@ -19,6 +19,7 @@ namespace GTA
     /// that can work only with physical entities (`<c>CPhysical</c>`s) but not with non-physical entities such as
     /// buildings (`<c>CBuilding</c>`s).
     /// </remarks>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public abstract class Entity : IEquatable<Entity>, IHandleable, ISpatial
     {
         public Entity(int handle)

@@ -115,7 +115,7 @@ namespace GTA
         /// Gets the north blip, which is shown on the radar.
         /// </summary>
         public static Blip NorthBlip
-            => FileVersion >= ExeVersionConsts.v1_0_463_1
+            => FileVersion >= ExeVersions.b463_1
             ? new Blip(Function.Call<int>(Hash.GET_NORTH_BLID_INDEX))
             : new Blip(SHVDN.NativeMemory.GetNorthBlip());
 
