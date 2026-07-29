@@ -9,6 +9,7 @@ using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public struct Model : IEquatable<Model>
     {
         public Model(int hash)

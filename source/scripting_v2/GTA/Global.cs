@@ -10,6 +10,7 @@ using GTA.Math;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public unsafe struct Global
     {
         private readonly IntPtr _address;

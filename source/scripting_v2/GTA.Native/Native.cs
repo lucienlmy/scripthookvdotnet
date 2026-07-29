@@ -72,6 +72,7 @@ namespace GTA.Native
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class InputArgument
     {
         internal ulong data;
@@ -249,6 +250,7 @@ namespace GTA.Native
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class OutputArgument : InputArgument, IDisposable
     {
         public OutputArgument() : base(Marshal.AllocCoTaskMem(24))
@@ -356,6 +358,7 @@ namespace GTA.Native
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public static class Function
     {
         private const int MaxArgCount = 63;

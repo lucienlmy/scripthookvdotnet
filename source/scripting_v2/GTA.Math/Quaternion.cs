@@ -25,6 +25,7 @@ namespace GTA.Math
 {
     [Serializable]
     [StructLayout(LayoutKind.Sequential)]
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public struct Quaternion : IEquatable<Quaternion>
     {
         /// <summary>

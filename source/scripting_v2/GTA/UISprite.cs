@@ -9,6 +9,7 @@ using System.Drawing;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class UISprite : UIElement, IDisposable
     {
         private readonly string _textureDict;

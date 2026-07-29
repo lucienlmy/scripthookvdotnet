@@ -185,5 +185,16 @@ namespace GTA
             get => Function.Call<int>(Hash.GET_PED_MONEY, Handle);
             set => Function.Call(Hash.SET_PED_MONEY, Handle, value);
         }
+        
+        /// Sets the ambient voice to use when this <see cref="Ped"/> speaks.
+        /// </summary>
+        /// <remarks>
+        /// The voice name will be stored as a joaat hash converted in the same way as <see cref="Game.GenerateHash(string)"/> does.
+        /// </remarks>
+        [Obsolete("Use Ped.AmbientVoiceHash = StringHash.AtStringHash(value) instead.")]
+        public string Voice
+        {
+            set => Function.Call(Hash.SET_AMBIENT_VOICE_NAME, Handle, value);
+        }
     }
 }

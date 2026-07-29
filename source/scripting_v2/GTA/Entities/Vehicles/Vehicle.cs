@@ -11,6 +11,7 @@ using System.Drawing;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class Vehicle : Entity
     {
         public Vehicle(int handle) : base(handle)
