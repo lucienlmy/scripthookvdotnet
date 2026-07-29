@@ -9,6 +9,7 @@ using GTA.Math;
 
 namespace GTA.NaturalMotion
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum ArmDirections
     {
         Backwards = -1,
@@ -16,6 +17,7 @@ namespace GTA.NaturalMotion
         Forwards
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum AnimSource
     {
         CurrentItems,
@@ -23,6 +25,7 @@ namespace GTA.NaturalMotion
         AnimItems
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum FallType
     {
         RampDownStiffness,
@@ -31,6 +34,7 @@ namespace GTA.NaturalMotion
         Slump
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum Synchroisation
     {
         NotSynced,
@@ -38,6 +42,7 @@ namespace GTA.NaturalMotion
         SyncedAtStart
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum TurnType
     {
         DontTurn,
@@ -45,6 +50,7 @@ namespace GTA.NaturalMotion
         AwayFromTarget
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum TorqueMode
     {
         Disabled,
@@ -52,6 +58,7 @@ namespace GTA.NaturalMotion
         Additive
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum TorqueSpinMode
     {
         FromImpulse,
@@ -59,6 +66,7 @@ namespace GTA.NaturalMotion
         Flipping
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum TorqueFilterMode
     {
         ApplyEveryBullet,
@@ -66,12 +74,14 @@ namespace GTA.NaturalMotion
         ApplyIfSpinDifferent
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum RbTwistAxis
     {
         WorldUp,
         CharacterComUp
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum WeaponMode
     {
         None = -1,
@@ -83,12 +93,14 @@ namespace GTA.NaturalMotion
         PistolRight
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum Hand
     {
         Left,
         Right
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum MirrorMode
     {
         Independant,
@@ -96,6 +108,7 @@ namespace GTA.NaturalMotion
         Parallel
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum AdaptiveMode
     {
         NotAdaptive,
@@ -104,6 +117,7 @@ namespace GTA.NaturalMotion
         DirectionSpeedAndStrength
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ActivePoseHelper : CustomHelper
     {
         /// <summary>
@@ -145,6 +159,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ApplyImpulseHelper : CustomHelper
     {
         /// <summary>
@@ -265,6 +280,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ApplyBulletImpulseHelper : CustomHelper
     {
         /// <summary>
@@ -392,6 +408,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Set the amount of relaxation across the whole body; Used to collapse the character into a rag-doll-like state.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BodyRelaxHelper : CustomHelper
     {
         /// <summary>
@@ -493,6 +510,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// This single message allows you to configure various parameters used on any behavior that uses the dynamic balance.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureBalanceHelper : CustomHelper
     {
         /// <summary>
@@ -1899,6 +1917,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Reset the values configurable by the Configure Balance message to their defaults.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureBalanceResetHelper : CustomHelper
     {
         /// <summary>
@@ -1916,6 +1935,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// This single message allows to configure self avoidance for the character.BBDD Self avoidance tech.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureSelfAvoidanceHelper : CustomHelper
     {
         /// <summary>
@@ -2089,6 +2109,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureBulletsHelper : CustomHelper
     {
         /// <summary>
@@ -3402,6 +3423,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureBulletsExtraHelper : CustomHelper
     {
         /// <summary>
@@ -4629,6 +4651,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Enable/disable/edit character limits in real time.  This adjusts limits in RAGE-native space and will *not* reorient the joint.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureLimitsHelper : CustomHelper
     {
         /// <summary>
@@ -4820,6 +4843,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureSoftLimitHelper : CustomHelper
     {
         /// <summary>
@@ -4982,6 +5006,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// This single message allows you to configure the injured arm reaction during shot.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureShotInjuredArmHelper : CustomHelper
     {
         /// <summary>
@@ -5241,6 +5266,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// This single message allows you to configure the injured leg reaction during shot.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureShotInjuredLegHelper : CustomHelper
     {
         /// <summary>
@@ -5504,6 +5530,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class DefineAttachedObjectHelper : CustomHelper
     {
         /// <summary>
@@ -5575,6 +5602,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Apply an impulse to a named body part.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ForceToBodyPartHelper : CustomHelper
     {
         /// <summary>
@@ -5639,6 +5667,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class LeanInDirectionHelper : CustomHelper
     {
         /// <summary>
@@ -5688,6 +5717,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class LeanRandomHelper : CustomHelper
     {
         /// <summary>
@@ -5803,6 +5833,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class LeanToPositionHelper : CustomHelper
     {
         /// <summary>
@@ -5851,6 +5882,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class LeanTowardsObjectHelper : CustomHelper
     {
         /// <summary>
@@ -5942,6 +5974,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HipsLeanInDirectionHelper : CustomHelper
     {
         /// <summary>
@@ -5991,6 +6024,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HipsLeanRandomHelper : CustomHelper
     {
         /// <summary>
@@ -6106,6 +6140,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HipsLeanToPositionHelper : CustomHelper
     {
         /// <summary>
@@ -6154,6 +6189,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HipsLeanTowardsObjectHelper : CustomHelper
     {
         /// <summary>
@@ -6245,6 +6281,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ForceLeanInDirectionHelper : CustomHelper
     {
         /// <summary>
@@ -6320,6 +6357,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ForceLeanRandomHelper : CustomHelper
     {
         /// <summary>
@@ -6461,6 +6499,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ForceLeanToPositionHelper : CustomHelper
     {
         /// <summary>
@@ -6535,6 +6574,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ForceLeanTowardsObjectHelper : CustomHelper
     {
         /// <summary>
@@ -6655,6 +6695,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Use this message to manually set the body stiffness values -before using Active Pose to drive to an animated pose, for example.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetStiffnessHelper : CustomHelper
     {
         /// <summary>
@@ -6735,6 +6776,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Use this message to manually set the muscle stiffness values -before using Active Pose to drive to an animated pose, for example.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetMuscleStiffnessHelper : CustomHelper
     {
         /// <summary>
@@ -6789,6 +6831,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Use this message to set the character's weapon mode.  This is an alternativeto the setWeaponMode public function.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetWeaponModeHelper : CustomHelper
     {
         /// <summary>
@@ -6816,6 +6859,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Use this message to register weapon.  This is an alternativeto the registerWeapon public function.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class RegisterWeaponHelper : CustomHelper
     {
         /// <summary>
@@ -6950,6 +6994,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotRelaxHelper : CustomHelper
     {
         /// <summary>
@@ -7016,6 +7061,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// One shot message apply a force to the hand as we fire the gun that should be in this hand.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class FireWeaponHelper : CustomHelper
     {
         /// <summary>
@@ -7144,6 +7190,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// One shot to give state of constraints on character and response to constraints.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ConfigureConstraintsHelper : CustomHelper
     {
         /// <summary>
@@ -7263,6 +7310,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class StayUprightHelper : CustomHelper
     {
         /// <summary>
@@ -7915,6 +7963,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Send this message to immediately stop all behaviors from executing.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class StopAllBehavioursHelper : CustomHelper
     {
         /// <summary>
@@ -7932,6 +7981,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Sets character's strength on the dead-granny-to-healthy-terminator scale: [0..1].
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetCharacterStrengthHelper : CustomHelper
     {
         /// <summary>
@@ -7975,6 +8025,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Sets character's health on the dead-to-alive scale: [0..1].
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetCharacterHealthHelper : CustomHelper
     {
         /// <summary>
@@ -8018,6 +8069,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Sets the type of reaction if catchFall is called.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetFallingReactionHelper : CustomHelper
     {
         /// <summary>
@@ -8440,6 +8492,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Sets viscosity applied to damping limbs.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetCharacterUnderwaterHelper : CustomHelper
     {
         /// <summary>
@@ -8557,6 +8610,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// SetCharacterCollisions:.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetCharacterCollisionsHelper : CustomHelper
     {
         /// <summary>
@@ -8713,6 +8767,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Damp out cartwheeling and somersaulting above a certain threshold.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetCharacterDampingHelper : CustomHelper
     {
         /// <summary>
@@ -8871,6 +8926,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// SetFrictionScale:.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SetFrictionScaleHelper : CustomHelper
     {
         /// <summary>
@@ -8974,6 +9030,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class AnimPoseHelper : CustomHelper
     {
         /// <summary>
@@ -9795,6 +9852,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ArmsWindmillHelper : CustomHelper
     {
         /// <summary>
@@ -10409,6 +10467,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ArmsWindmillAdaptiveHelper : CustomHelper
     {
         /// <summary>
@@ -10756,6 +10815,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BalancerCollisionsReactionHelper : CustomHelper
     {
         /// <summary>
@@ -11717,6 +11777,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BodyBalanceHelper : CustomHelper
     {
         /// <summary>
@@ -12925,6 +12986,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BodyFoetalHelper : CustomHelper
     {
         /// <summary>
@@ -13071,6 +13133,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BodyRollUpHelper : CustomHelper
     {
         /// <summary>
@@ -13364,6 +13427,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BodyWritheHelper : CustomHelper
     {
         /// <summary>
@@ -14038,6 +14102,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BraceForImpactHelper : CustomHelper
     {
         /// <summary>
@@ -15058,6 +15123,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Simple buoyancy model.  No character movement just fluid forces/torques added to parts.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class BuoyancyHelper : CustomHelper
     {
         /// <summary>
@@ -15206,6 +15272,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class CatchFallHelper : CustomHelper
     {
         /// <summary>
@@ -15421,6 +15488,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ElectrocuteHelper : CustomHelper
     {
         /// <summary>
@@ -15843,6 +15911,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class FallOverWallHelper : CustomHelper
     {
         /// <summary>
@@ -16447,6 +16516,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class GrabHelper : CustomHelper
     {
         /// <summary>
@@ -17161,6 +17231,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HeadLookHelper : CustomHelper
     {
         /// <summary>
@@ -17322,6 +17393,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class HighFallHelper : CustomHelper
     {
         /// <summary>
@@ -18145,6 +18217,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class IncomingTransformsHelper : CustomHelper
     {
         /// <summary>
@@ -18159,6 +18232,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// InjuredOnGround.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class InjuredOnGroundHelper : CustomHelper
     {
         /// <summary>
@@ -18324,6 +18398,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Carried.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class CarriedHelper : CustomHelper
     {
         /// <summary>
@@ -18341,6 +18416,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Dangle.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class DangleHelper : CustomHelper
     {
         /// <summary>
@@ -18390,6 +18466,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class OnFireHelper : CustomHelper
     {
         /// <summary>
@@ -18778,6 +18855,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class PedalLegsHelper : CustomHelper
     {
         /// <summary>
@@ -19231,6 +19309,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// BEHAVIOURS REFERENCED: AnimPose - allows animPose to override body parts: Arms (useLeftArm, useRightArm).
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class PointArmHelper : CustomHelper
     {
         /// <summary>
@@ -19607,6 +19686,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class PointGunHelper : CustomHelper
     {
         /// <summary>
@@ -20952,6 +21032,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Seldom set parameters for pointGun - just to keep number of parameters in any message less than or equal to 64.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class PointGunExtraHelper : CustomHelper
     {
         /// <summary>
@@ -21179,6 +21260,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class RollDownStairsHelper : CustomHelper
     {
         /// <summary>
@@ -21881,6 +21963,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotHelper : CustomHelper
     {
         /// <summary>
@@ -23118,6 +23201,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Send new wound information to the shot.  Can cause shot to restart it's performance in part or in whole.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotNewBulletHelper : CustomHelper
     {
         /// <summary>
@@ -23207,6 +23291,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotSnapHelper : CustomHelper
     {
         /// <summary>
@@ -23576,6 +23661,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Configure the shockSpin effect in shot.  Spin/Lift the character using cheat torques/forces.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotShockSpinHelper : CustomHelper
     {
         /// <summary>
@@ -23897,6 +23983,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Configure the fall to knees shot.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotFallToKneesHelper : CustomHelper
     {
         /// <summary>
@@ -24449,6 +24536,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Configure the shot from behind reaction.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotFromBehindHelper : CustomHelper
     {
         /// <summary>
@@ -24740,6 +24828,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Configure the shot in guts reaction.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotInGutsHelper : CustomHelper
     {
         /// <summary>
@@ -24947,6 +25036,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotHeadLookHelper : CustomHelper
     {
         /// <summary>
@@ -25089,6 +25179,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Configure the arm reactions in shot.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class ShotConfigureArmsHelper : CustomHelper
     {
         /// <summary>
@@ -25922,6 +26013,7 @@ namespace GTA.NaturalMotion
     /// <summary>
     /// Clone of High Fall with a wider range of operating conditions.
     /// </summary>
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class SmartFallHelper : CustomHelper
     {
         /// <summary>
@@ -27178,6 +27270,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class StaggerFallHelper : CustomHelper
     {
         /// <summary>
@@ -28209,6 +28302,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class TeeterHelper : CustomHelper
     {
         /// <summary>
@@ -28392,6 +28486,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class UpperBodyFlinchHelper : CustomHelper
     {
         /// <summary>
@@ -28712,6 +28807,7 @@ namespace GTA.NaturalMotion
         }
     }
 
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public sealed class YankedHelper : CustomHelper
     {
         /// <summary>

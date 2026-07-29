@@ -8,6 +8,7 @@ using System.ComponentModel;
 
 namespace GTA.Native
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public enum VehicleHash : uint
     {
         Adder = 3078201489u,

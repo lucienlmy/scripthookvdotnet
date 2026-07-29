@@ -5,9 +5,11 @@
 
 using GTA.Native;
 using System.Drawing;
+using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class UIText : UIElement
     {
         public UIText(string caption, Point position, float scale) : this(caption, position, scale, Color.WhiteSmoke, Font.ChaletLondon, false, false, false)

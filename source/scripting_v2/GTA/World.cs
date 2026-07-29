@@ -12,6 +12,7 @@ using System.Globalization;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public static class World
     {
         #region Fields

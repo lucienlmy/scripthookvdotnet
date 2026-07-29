@@ -7,6 +7,7 @@ using System;
 
 namespace GTA
 {
+    [Obsolete("The v2 API is deprecated, use the v3 API instead.")]
     public class MenuItemIndexArgs : EventArgs
     {
         public MenuItemIndexArgs(int index)
