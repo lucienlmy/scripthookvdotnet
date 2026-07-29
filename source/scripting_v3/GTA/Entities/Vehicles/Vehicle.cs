@@ -2715,15 +2715,31 @@ namespace GTA
         }
 
         /// <summary>
-        /// Completely enables or disables this <see cref="Vehicle"/>'s flight mode, used for <see cref="VehicleHash.Deluxo"/> and <see cref="VehicleHash.Oppressor2"/>.
-        /// Only available in v1.0.1290.1 or later.
+        /// Gets or sets a value that indicates whether this <see cref="Vehicle"/> is allowed to switch to flight mode.
         /// </summary>
-        /// <param name="allowed">Whether to allow the <see cref="Vehicle"/> to switch to flight mode or not.</param>
-        public void SetSpecialFlightModeAllowed(bool allowed)
+        /// <remarks>
+        /// Used for the <see cref="VehicleHash.Deluxo"/> and <see cref="VehicleHash.Oppressor2"/>.
+        /// </remarks>
+        /// <exception cref="GameVersionNotSupportedException">
+        /// Thrown if the setter is called prior to v1.0.1290.1.
+        /// </exception>
+        public bool SpecialFlightModeAllowed
         {
-            GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b1290_1, nameof(Vehicle), nameof(SetSpecialFlightModeAllowed));
+            get
+            {
+                if (!TryGetMemoryAddress(out IntPtr address) || SHVDN.NativeMemory.Vehicle.SpecialFlightModeAllowedOffset == 0)
+                {
+                    return false;
+                }
 
-            Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Handle, allowed);
+                return SHVDN.MemDataMarshal.ReadByte(address + SHVDN.NativeMemory.Vehicle.SpecialFlightModeAllowedOffset) != 0;
+            }
+            set
+            {
+                GameVersionNotSupportedException.ThrowIfNotSupported(ExeVersions.b1290_1, nameof(Vehicle), nameof(SpecialFlightModeAllowed));
+
+                Function.Call(Hash.SET_SPECIAL_FLIGHT_MODE_ALLOWED, Handle, value);
+            }
         }
 
         /// <summary>
