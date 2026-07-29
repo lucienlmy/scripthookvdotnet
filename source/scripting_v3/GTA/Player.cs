@@ -746,13 +746,19 @@ namespace GTA
         public Vehicle LastVehicle => Function.Call<Vehicle>(Hash.GET_PLAYERS_LAST_VEHICLE);
 
         /// <summary>
-        /// Sets a value indicating whether the player is forced to aim.
+        /// Gets or sets a value indicating whether the player is forced to aim.
         /// </summary>
         /// <value>
         ///   <see langword="true" /> to make the player always be aiming; otherwise, <see langword="false" />.
         /// </value>
         public bool ForcedAim
         {
+            get
+            {
+                Ped character = Character;
+
+                return character.GetConfigFlag(PedConfigFlagToggles.ForcedAim) || character.GetConfigFlag(PedConfigFlagToggles.ForcedAimFromArrest);
+            }
             set => Function.Call(Hash.SET_PLAYER_FORCED_AIM, Handle, value);
         }
 
