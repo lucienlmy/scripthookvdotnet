@@ -741,6 +741,12 @@ namespace SHVDN
                 s_disableArtificialLightsAddress = Rel32<byte>(address, 0x10);
             }
 
+            address = MemScanner.FindPatternBmh("\xC0\xE8\x07\xA8\x01\x74\x08\x48\x8b\xCB", "xxxxxxxxxx");
+            if (address != null)
+            {
+                s_cRiotsInstPtr = (ulong**)Rel32(address, -0xF);
+            }
+
             // Nopping this enables to spawn some drawable objects without a dedicated collision (e.g. prop_fan_palm_01a)
             address = MemScanner.FindPatternBmh("\x74\x00\x00\x00\x00\x74\x00\xe8\x00\x00\x00\x00\x48\x85\xc0\x75\x00\x38\x00\x00\x0f\x84\x00\x00\x00\x00\x48\x8d\x4d\x00\xe8\x00\x00\x00\x00\x66\x89\x45\x00\x8b\x45\x00\x8b\xc8\x33\x4d", "x????x?x????xxxx?x??xx????xxx?x????xxx?xx?xxxx");
             if (address != null)
@@ -1156,6 +1162,22 @@ namespace SHVDN
         public static bool AreArtificialLightsDisabled
         {
             get => *s_disableArtificialLightsAddress != 0;
+        }
+
+        private static ulong** s_cRiotsInstPtr;
+
+        public static bool IsRiotModeEnabled
+        {
+            get
+            {
+                if (s_cRiotsInstPtr == null)
+                {
+                    return false;
+                }
+
+                // `m_bEnabled` lies at offset 0x00.
+                return *(byte*)*s_cRiotsInstPtr != 0;
+            }
         }
         #endregion
 
@@ -2543,6 +2565,15 @@ namespace SHVDN
                     s_audSpeechAudioEntity__SayFunc = (delegate* unmanaged[Stdcall]<IntPtr, uint, IntPtr, uint, int, IntPtr, uint, int, float, bool, int*, FVector3*, int>)(Rel32(address, 0x21));
                 }
 
+                address = MemScanner.FindPatternBmh("\x0F\x85\xFF\xFF\xFF\xFF\x83\xF9\x0E\x0F\x84\xFF\xFF\xFF\xFF\x44\x38\x0D\xFF\xFF\xFF\xFF\x41\xBD\x02\x00\x00\x00", "xx????xxxxx????xxx????xxxxxx");
+                if(address != null)
+                {
+                    AudSpeechAudioEntity__DisablePainOffset = *(int*)(address - 0x4);
+
+                    AudSpeechAudioEntity__SpeakingDisabledOffset = AudSpeechAudioEntity__DisablePainOffset + 1;
+                    AudSpeechAudioEntity__SpeakingDisabledSyncedOffset = AudSpeechAudioEntity__DisablePainOffset + 2;
+                }
+
                 // Only needed before b463 due to the absence of GET_AMBIENT_VOICE_NAME_HASH.
                 if (GameFileVersion < new Version(1, 0, 463, 1))
                 {
@@ -2680,6 +2711,10 @@ namespace SHVDN
             /// While the pattern works newer versions as well, this is only assigned in pre b463 versions.
             /// </remarks>
             public static int AudSpeechAudioEntity__AmbientVoiceNameHashOffset { get; }
+
+            public static int AudSpeechAudioEntity__DisablePainOffset { get; }
+            public static int AudSpeechAudioEntity__SpeakingDisabledOffset { get; }
+            public static int AudSpeechAudioEntity__SpeakingDisabledSyncedOffset { get; }
 
             #region -- Ped Intelligence Offsets --
 
@@ -2966,6 +3001,41 @@ namespace SHVDN
                 s_audSpeechAudioEntity__SetAmbientVoiceNameFunc(audSpeechAudioEntityAddress, hash, true);
             }
 
+            public static bool GetIsPainAudioDisabled(IntPtr pedAddress)
+            {
+                if(AudSpeechAudioEntity__DisablePainOffset == 0)
+                {
+                    return false;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return false;
+                }
+
+                return *(byte*)((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__DisablePainOffset) != 0;
+            }
+
+            public static void SetAmbientSpeechEnabled(IntPtr pedAddress, bool value)
+            {
+                if (AudSpeechAudioEntity__SpeakingDisabledOffset == 0 || AudSpeechAudioEntity__SpeakingDisabledSyncedOffset == 0)
+                {
+                    return;
+                }
+
+                IntPtr audSpeechAudioEntityAddress = GetAudSpeechAudioEntityAddress(pedAddress);
+                if (audSpeechAudioEntityAddress == IntPtr.Zero)
+                {
+                    return;
+                }
+
+                // We invert the value here!
+                byte byteValue = (byte)(value == false ? 1 : 0);
+
+                *((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__SpeakingDisabledOffset) = byteValue;
+                *((byte*)audSpeechAudioEntityAddress + AudSpeechAudioEntity__SpeakingDisabledSyncedOffset) = byteValue;
+            }
 
             private static IntPtr GetAudSpeechAudioEntityAddress(IntPtr pedAddress)
             {

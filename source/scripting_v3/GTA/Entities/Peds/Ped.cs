@@ -938,6 +938,7 @@ namespace GTA
         /// </value>
         public bool KeepTaskWhenMarkedAsNoLongerNeeded
         {
+            get => GetConfigFlag(PedConfigFlagToggles.KeepTasksAfterCleanUp);
             set => Function.Call(Hash.SET_PED_KEEP_TASK, Handle, value);
         }
 
@@ -2232,6 +2233,7 @@ namespace GTA
         /// </summary>
         public bool DiesOnLowHealth
         {
+            get => GetConfigFlag(PedConfigFlagToggles.ForceDieIfInjured);
             set => Function.Call(Hash.SET_PED_DIES_WHEN_INJURED, Handle, value);
         }
 
@@ -2689,8 +2691,12 @@ namespace GTA
         #region Speeches
         // This region is for properties and methods that access an audSpeechAudioEntity instance
 
+        /// <summary>
+        /// Gets or sets a value that indicates whether this <see cref="Ped"/> can audibly react to pain.
+        /// </summary>
         public bool IsPainAudioEnabled
         {
+            get => !SHVDN.NativeMemory.Ped.GetIsPainAudioDisabled(MemoryAddress);
             set => Function.Call(Hash.DISABLE_PED_PAIN_AUDIO, Handle, !value);
         }
 
@@ -2700,7 +2706,14 @@ namespace GTA
 
         public bool IsAnySpeechPlaying => Function.Call<bool>(Hash.IS_ANY_SPEECH_PLAYING, Handle);
 
-        public bool IsAmbientSpeechEnabled => !Function.Call<bool>(Hash.IS_AMBIENT_SPEECH_DISABLED, Handle);
+        /// <summary>
+        /// Gets or sets a value that indicates whether this <see cref="Ped"/> can play ambient speech.
+        /// </summary>
+        public bool IsAmbientSpeechEnabled
+        {
+            get => !Function.Call<bool>(Hash.IS_AMBIENT_SPEECH_DISABLED, Handle);
+            set => SHVDN.NativeMemory.Ped.SetAmbientSpeechEnabled(MemoryAddress, value);
+        }
 
         public void PlayAmbientSpeech(string speechName, SpeechModifier modifier = SpeechModifier.Standard)
         {
